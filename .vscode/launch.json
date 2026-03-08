@@ -7,13 +7,6 @@
       "request": "launch",
       "file": "${workspaceFolder}/index.html",
       "webRoot": "${workspaceFolder}"
-    },
-    {
-      "name": "Open index.html (Edge)",
-      "type": "pwa-msedge",
-      "request": "launch",
-      "file": "${workspaceFolder}/index.html",
-      "webRoot": "${workspaceFolder}"
     }
   ]
 }
