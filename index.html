@@ -52,7 +52,7 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     height: var(--nav-h);
-    background: rgb(42, 109, 217, 0.65);
+    background: rgba(71, 102, 150, 0.65);
     -webkit-backdrop-filter: blur(18px);
     backdrop-filter: blur(18px);
     border-bottom: 1px solid var(--glass-border);
@@ -131,6 +131,19 @@
     display: block;
     line-height: 1.1;
     color: var(--accent);
+  }
+  .event-kicker {
+    display: block;
+    font-size: 0.42em;
+    line-height: 1.1;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .event-kicker sup {
+    font-size: 0.6em;
+    vertical-align: super;
+    line-height: 0;
   }
   .hero-badge {
     display: inline-block;
@@ -441,6 +454,9 @@
           <img src="images/Shared Logo.png" alt="Shared Logo" class="hero-logo-img">
         </div>
                 <h1>
+          <span class="event-kicker">
+            11<sup>th</sup> Annual
+          </span>
           <span class="event-title">
             Cell & Gene
           </span>
@@ -635,8 +651,8 @@ Join a distinguished global community of researchers, clinicians, and industry l
       <div class="section-title">Scientific Schedule</div>
       <p class="section-desc">Two full days of plenary sessions, panel discussions, and networking events.</p>
       <div class="schedule-tabs schedule-tabs-tight">
-        <button class="tab-btn active" onclick="showDay(0,this)">Day 1 Â· Oct 09</button>
-        <button class="tab-btn" onclick="showDay(1,this)">Day 2 Â· Oct 10</button>
+        <button class="tab-btn active" onclick="showDay(0,this)">Day 1 · Oct 09</button>
+        <button class="tab-btn" onclick="showDay(1,this)">Day 2 · Oct 10</button>
       </div>
       <div class="schedule-day active" id="day-0">
         <div class="schedule-item glass"><div class="schedule-time">08:00 - 09:00</div><div class="schedule-content"><h4>Registration & Welcome Coffee</h4><p>Foyer, Level 1</p><span class="schedule-tag tag-break">Break</span></div></div>
@@ -839,7 +855,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">11th Annual Cell & Gene Therapy Symposium 2026 . October 09-10, 2026</div>
+  <div class="footer-logo">11<sup>th</sup> Annual Cell & Gene Therapy Symposium 2026 . October 09-10, 2026</div>
   <div class="footer-links">
     <a href="#" onclick="showPage('home',null)">Home</a>
     <a href="#" onclick="showPage('about',null)">About</a>
@@ -849,7 +865,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
     <a href="#" onclick="showPage('venue',null)">Venue</a>
     <a href="#" onclick="showPage('register',null)">Register</a>
   </div>
-  <p class="footer-copy">Â© 2026 Cell & Gene Therapy Symposium. All rights reserved. CSCR, CMC, Vellore.</p>
+  <p class="footer-copy"><sup>©</sup> 2026 Cell & Gene Therapy Symposium. All rights reserved. CSCR, CMC, Vellore.</p>
 </footer>
 
 <script>
