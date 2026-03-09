@@ -800,7 +800,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
                 <label for="phone">Phone Number *</label>
                 <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
               </div>
-              <div class="form-group full">
+              <div class="form-group">
                 <label for="qualification">Qualification *</label>
                 <select id="qualification" required>
                   <option value="" disabled selected>Select qualification</option>
@@ -812,19 +812,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
                   <option>MD/Dip</option>
                 </select>
               </div>
-              <div class="form-group full">
-                <label for="institution">Affiliated Institution *</label>
-                <input type="text" id="institution" placeholder="e.g. Massachusetts Institute of Technology" required>
-              </div>
-              <div class="form-group full">
-                <label for="researchArea">Research Area *</label>
-                <input type="text" id="researchArea" placeholder="e.g. Cell Therapy, Gene Therapy, etc." required>
-              </div>
-              <div class="form-group full">
-                <label for="address">Full Address *</label>
-                <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
-              </div>
-              <div class="form-group full">
+              <div class="form-group">
                 <label for="food">Food Preference *</label>
                 <select id="food" required>
                   <option value="" disabled selected>Select preference</option>
@@ -832,6 +820,35 @@ Join a distinguished global community of researchers, clinicians, and industry l
                   <option>Vegetarian</option>
                   <option>Non-Vegetarian</option>
                 </select>
+              </div>
+              <div class="form-group full">
+                <label for="researchInterests">Research Interests *</label>
+                <input type="text" id="researchInterests" placeholder="e.g. Cell Therapy, Gene Therapy, etc." required>
+              </div>
+              <div class="form-group full">
+                <label for="institution">Affiliated Institution *</label>
+                <input type="text" id="institution" placeholder="e.g. Massachusetts Institute of Technology" required>
+              </div>
+              <div class="form-group full">
+                <label for="address">Full Address *</label>
+                <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="eventinfo">Help us improve-How did you hear about this event? *</label>
+                <select id="eventinfo" required>
+                  <option value="" disabled selected>Select option</option>
+                  <option>X</option>
+                  <option>Facebook</option>
+                  <option>LinkedIn</option>
+                  <option>CSCR Website</option>
+                  <option>CSCR Meet Email</option>
+                  <option>Colleague Recommendation</option>
+                  <option>Institutional Broadcast</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="eventInterest">Why are you interested in attending this event? *</label>
+                <input type="text" id="eventInterest" placeholder="Please share your reasons for attending" required>
               </div>
             </div>
             <div class="form-submit">
@@ -949,9 +966,13 @@ Join a distinguished global community of researchers, clinicians, and industry l
       gender:    document.getElementById('gender').value,
       email:     document.getElementById('email').value.trim(),
       phone:     document.getElementById('phone').value.trim(),
+      qualification: document.getElementById('qualification').value,
+      researchInterests: document.getElementById('researchInterests').value.trim(),
       institution: document.getElementById('institution').value.trim(),
       address:   document.getElementById('address').value.trim(),
       food:      document.getElementById('food').value,
+      eventinfo: document.getElementById('eventinfo').value,
+      eventInterest: document.getElementById('eventInterest').value.trim(),
       timestamp: new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'})
     };
     saveRegistration(reg);
