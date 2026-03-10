@@ -357,6 +357,30 @@
   }
   .form-group textarea { resize: vertical; min-height: 90px; }
   .form-group select { cursor: pointer; }
+  .id-preview-wrap { margin-top: 24px; width: 50%; }
+  .id-preview-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .id-preview-card {
+    display: block;
+    padding: 16px 18px;
+    border-radius: 16px;
+  }
+  .id-preview-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+  .id-preview-inst {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
   .form-submit { margin-top: 28px; text-align: center; }
   .form-submit .btn { width: 100%; max-width: 300px; justify-content: center; font-size: 1rem; padding: 16px 32px; }
   .form-notice { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 14px; }
@@ -420,6 +444,7 @@
     .about-grid, .venue-grid { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
     .form-group.full { grid-column: 1; }
+    .id-preview-wrap { width: 100%; }
     .register-form { padding: 24px; }
     section { padding: 60px 5%; }
   }
@@ -773,7 +798,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
           <form id="regForm">
             <div class="form-grid">
               <div class="form-group">
-                <label for="firstName">First Name *</label>
+                <label for="firstName">First Name (Do not include salutation)*</label>
                 <input type="text" id="firstName" placeholder="Jane" required>
               </div>
               <div class="form-group">
@@ -800,31 +825,18 @@ Join a distinguished global community of researchers, clinicians, and industry l
                 <label for="phone">Phone Number *</label>
                 <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
               </div>
-              <div class="form-group full">
+              <div class="form-group">
                 <label for="qualification">Qualification *</label>
                 <select id="qualification" required>
                   <option value="" disabled selected>Select qualification</option>
-                  <option>PhD</option>
-                  <option>M.B.B.S.</option>
                   <option>B.Sc./B.Tech</option>
                   <option>M.Sc./M.Tech</option>
+                  <option>Ph.D.</option>
                   <option>M.B.B.S</option>
-                  <option>MD/Dip</option>
+                  <option>MD/Diploma</option>
                 </select>
               </div>
-              <div class="form-group full">
-                <label for="institution">Affiliated Institution *</label>
-                <input type="text" id="institution" placeholder="e.g. Massachusetts Institute of Technology" required>
-              </div>
-              <div class="form-group full">
-                <label for="researchArea">Research Area *</label>
-                <input type="text" id="researchArea" placeholder="e.g. Cell Therapy, Gene Therapy, etc." required>
-              </div>
-              <div class="form-group full">
-                <label for="address">Full Address *</label>
-                <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
-              </div>
-              <div class="form-group full">
+              <div class="form-group">
                 <label for="food">Food Preference *</label>
                 <select id="food" required>
                   <option value="" disabled selected>Select preference</option>
@@ -832,6 +844,42 @@ Join a distinguished global community of researchers, clinicians, and industry l
                   <option>Vegetarian</option>
                   <option>Non-Vegetarian</option>
                 </select>
+              </div>
+              <div class="form-group full">
+                <label for="researchInterests">Research Interests *</label>
+                <input type="text" id="researchInterests" placeholder="e.g. Cell Therapy, Gene Therapy, etc." required>
+              </div>
+              <div class="form-group full">
+                <label for="institution">Affiliated Institution *</label>
+                <input type="text" id="institution" placeholder="e.g. Massachusetts Institute of Technology" required>
+              </div>
+              <div class="form-group full">
+                <label for="address">Full Address *</label>
+                <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="eventinfo">Help us improve-How did you hear about this event? *</label>
+                <select id="eventinfo" required>
+                  <option value="" disabled selected>Select option</option>
+                  <option>X</option>
+                  <option>Facebook</option>
+                  <option>LinkedIn</option>
+                  <option>CSCR Website</option>
+                  <option>CSCR Meet Email</option>
+                  <option>Colleague Recommendation</option>
+                  <option>Institutional Broadcast</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="eventInterest">Why are you interested in attending this event? *</label>
+                <input type="text" id="eventInterest" placeholder="Please share your reasons for attending" required>
+              </div>
+            </div>
+            <div class="id-preview-wrap">
+              <div class="id-preview-label">ID Card Preview</div>
+              <div class="id-preview-card glass">
+                <div class="id-preview-name" id="previewFullName">First Name Last Name</div>
+                <div class="id-preview-inst" id="previewInstitution">Affiliated Institution</div>
               </div>
             </div>
             <div class="form-submit">
@@ -939,6 +987,22 @@ Join a distinguished global community of researchers, clinicians, and industry l
   }
   function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  // ID CARD PREVIEW
+  function updateIdPreview() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const institution = document.getElementById('institution').value.trim();
+    const fullName = `${firstName} ${lastName}`.trim();
+
+    document.getElementById('previewFullName').textContent = fullName || 'First Name Last Name';
+    document.getElementById('previewInstitution').textContent = institution || 'Affiliated Institution';
+  }
+
+  ['firstName', 'lastName', 'institution'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateIdPreview);
+  });
+  updateIdPreview();
+
   // FORM SUBMIT
   document.getElementById('regForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -949,9 +1013,13 @@ Join a distinguished global community of researchers, clinicians, and industry l
       gender:    document.getElementById('gender').value,
       email:     document.getElementById('email').value.trim(),
       phone:     document.getElementById('phone').value.trim(),
+      qualification: document.getElementById('qualification').value,
+      researchInterests: document.getElementById('researchInterests').value.trim(),
       institution: document.getElementById('institution').value.trim(),
       address:   document.getElementById('address').value.trim(),
       food:      document.getElementById('food').value,
+      eventinfo: document.getElementById('eventinfo').value,
+      eventInterest: document.getElementById('eventInterest').value.trim(),
       timestamp: new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'})
     };
     saveRegistration(reg);
