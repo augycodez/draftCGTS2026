@@ -1,12 +1,14 @@
 {
   "version": "0.2.0",
   "configurations": [
+    
     {
-      "name": "Open index.html (Chrome)",
+      "name": "Open index.html (Edge)",
       "type": "pwa-chrome",
       "request": "launch",
       "file": "${workspaceFolder}/index.html",
-      "webRoot": "${workspaceFolder}"
+      "webRoot": "${workspaceFolder}",
+      "runtimeExecutable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
     }
   ]
 }
