@@ -1,3 +1,5 @@
 {
-    "claudeCodeChat.permissions.yoloMode": false
+    "claudeCodeChat.permissions.yoloMode": false,
+    "chatgpt.runCodexInWindowsSubsystemForLinux": true,
+    "chatgpt.openOnStartup": true
 }
