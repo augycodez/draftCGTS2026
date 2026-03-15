@@ -20,6 +20,11 @@
     --muted: #5a6a88;
     --header-h: 100px;
     --nav-h: 60px;
+    --page-gutter: clamp(24px, 4vw, 56px);
+    --nav-max: 1360px;
+    --content-max: 1600px;
+    --hero-max: 1480px;
+    --copy-max: 980px;
     --float-gap: 18px;
     --surface-gap: 14px;
     --bridge-h: calc(var(--float-gap) + var(--surface-gap));
@@ -86,12 +91,12 @@
     pointer-events: none;
   }
   .top-header-inner {
-    width: min(1200px, 100%);
+    width: min(var(--nav-max), calc(100% - (var(--page-gutter) * 2)));
     min-height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 clamp(68px, 12vw, 132px);
+    padding: 0;
     position: relative;
     z-index: 1;
   }
@@ -132,21 +137,46 @@
     top: calc(var(--header-h) + var(--bridge-h));
     left: 50%;
     transform: translateX(-50%);
-    width: min(1080px, calc(100% - 48px));
+    width: min(var(--nav-max), calc(100% - (var(--page-gutter) * 2)));
     z-index: 100;
     height: var(--nav-h);
+    overflow: hidden;
     background:
-      linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08)),
-      rgba(56, 119, 220, 0.3);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
-    backdrop-filter: blur(18px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.3);
+      linear-gradient(140deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.16) 34%, rgba(139, 201, 255, 0.18) 70%, rgba(63, 119, 232, 0.14) 100%),
+      linear-gradient(115deg, rgba(20, 74, 173, 0.4), rgba(73, 162, 255, 0.24) 58%, rgba(150, 227, 255, 0.18));
+    -webkit-backdrop-filter: blur(28px) saturate(235%);
+    backdrop-filter: blur(28px) saturate(235%);
+    border: 1px solid rgba(255,255,255,0.42);
     border-radius: 30px;
     display: flex; align-items: center; justify-content: center;
     padding: 0 28px;
     box-shadow:
-      0 12px 30px rgba(63, 96, 143, 0.16),
-      inset 0 1px 0 rgba(255,255,255,0.5);
+      0 24px 55px rgba(45, 82, 138, 0.24),
+      0 10px 28px rgba(86, 154, 255, 0.22),
+      inset 0 1px 0 rgba(255,255,255,0.82),
+      inset 0 -14px 22px rgba(42, 111, 214, 0.12);
+  }
+  nav::before,
+  nav::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  nav::before {
+    inset: 1px;
+    border-radius: inherit;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.14) 34%, rgba(255,255,255,0) 100%);
+    opacity: 1;
+  }
+  nav::after {
+    width: 320px;
+    height: 320px;
+    top: -210px;
+    left: 4%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.18) 36%, rgba(255,255,255,0) 72%);
+    filter: blur(10px);
   }
   .nav-links {
     display: flex;
@@ -155,6 +185,8 @@
     list-style: none;
     margin: 0 auto;
     padding: 0;
+    position: relative;
+    z-index: 1;
   }
   .nav-links li {
     display: flex;
@@ -166,33 +198,59 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    text-decoration: none; color: rgba(16, 35, 69, 0.88);
+    overflow: hidden;
+    text-decoration: none; color: rgba(12, 28, 58, 0.96);
     font-size: 1.1rem; font-weight: 500;
     line-height: 1;
     min-height: 40px;
     padding: 10px 14px;
     border-radius: 999px;
-    transition: color 0.25s, background 0.25s, box-shadow 0.25s;
+    border: 1px solid rgba(255,255,255,0.02);
+    transition: color 0.25s, background 0.25s, box-shadow 0.25s, border-color 0.25s, transform 0.25s;
     white-space: nowrap;
+  }
+  .nav-links a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.56), rgba(255,255,255,0.1) 48%, rgba(155, 218, 255, 0.24));
+    opacity: 0;
+    transition: opacity 0.25s ease;
   }
   .nav-links a::after {
     content: '';
     position: absolute;
     left: 14px;
     right: 14px;
-    bottom: 7px;
-    height: 2px;
+    bottom: 6px;
+    height: 2.5px;
     border-radius: 999px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.95), rgba(255,255,255,0.1));
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1), rgba(179, 232, 255, 0.75), rgba(255,255,255,0));
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 0.25s ease;
   }
+  .nav-links a span {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 10px rgba(255,255,255,0.18);
+  }
   .nav-links a:hover, .nav-links a.active {
     color: #fff;
-    background: rgba(255,255,255,0.18);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04)),
+      rgba(120, 188, 255, 0.14);
+    border-color: rgba(255,255,255,0.34);
+    box-shadow:
+      0 14px 30px rgba(40, 94, 171, 0.26),
+      0 0 18px rgba(164, 219, 255, 0.16),
+      inset 0 1px 0 rgba(255,255,255,0.56),
+      inset 0 -10px 16px rgba(59, 126, 214, 0.24);
+    transform: translateY(-2px) scale(1.01);
   }
+  .nav-links a:hover::before, .nav-links a.active::before { opacity: 1; }
   .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
   .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
@@ -234,15 +292,78 @@
     min-height: calc(100vh - var(--top-offset));
     display: flex; align-items: center; justify-content: center;
     text-align: center;
-    padding: 60px 5%;
+    padding: 60px var(--page-gutter);
   }
   .hero-inner {
-    max-width: 900px;
+    width: min(var(--hero-max), 100%);
     padding: clamp(2rem, 5vw, 4rem);
     animation: fadeUp 0.9s ease both;
     box-shadow:
       0 24px 60px rgba(76, 109, 156, 0.18),
       inset 0 1px 0 rgba(255,255,255,0.72);
+  }
+  .hero-glass {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.16) 34%, rgba(147, 208, 255, 0.18) 66%, rgba(61, 117, 229, 0.14) 100%),
+      linear-gradient(120deg, rgba(20, 74, 173, 0.18), rgba(121, 202, 255, 0.1));
+    -webkit-backdrop-filter: blur(30px) saturate(225%);
+    backdrop-filter: blur(30px) saturate(225%);
+    border: 1px solid rgba(255,255,255,0.48);
+    border-radius: 34px;
+    box-shadow:
+      0 30px 80px rgba(49, 84, 134, 0.22),
+      0 12px 36px rgba(95, 166, 255, 0.18),
+      inset 0 1px 0 rgba(255,255,255,0.86),
+      inset 0 -16px 28px rgba(49, 111, 204, 0.12);
+    isolation: isolate;
+  }
+  .hero-glass::before,
+  .hero-glass::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .hero-glass::before {
+    inset: 1px;
+    border-radius: inherit;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.18) 26%, rgba(255,255,255,0) 56%),
+      linear-gradient(120deg, rgba(255,255,255,0.18), rgba(255,255,255,0) 36%);
+    opacity: 1;
+  }
+  .hero-glass::after {
+    width: 420px;
+    height: 420px;
+    top: -300px;
+    left: -80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.2) 34%, rgba(255,255,255,0) 72%);
+    filter: blur(10px);
+    opacity: 0.9;
+  }
+  .hero-glass > * {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-glass .hero-sub {
+    color: rgba(53, 72, 107, 0.92);
+  }
+  .hero-glass .meta-pill {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.42), rgba(255,255,255,0.14)),
+      rgba(131, 194, 255, 0.1);
+    border: 1px solid rgba(255,255,255,0.46);
+    box-shadow:
+      0 12px 24px rgba(93, 123, 166, 0.14),
+      inset 0 1px 0 rgba(255,255,255,0.78),
+      inset 0 -10px 16px rgba(72, 134, 219, 0.08);
+  }
+  .hero-glass .btn-primary {
+    box-shadow:
+      0 16px 30px rgba(42, 109, 217, 0.22),
+      inset 0 1px 0 rgba(255,255,255,0.28);
   }
   .event-title {
   display: block;
@@ -287,7 +408,7 @@
   }
   .hero h1 em { color: var(--accent); font-style: normal; }
   .hero-sub {
-    font-size: 1.05rem; color: var(--muted); max-width: 580px; margin: 0 auto 36px;
+    font-size: 1.05rem; color: var(--muted); max-width: var(--copy-max); margin: 0 auto 36px;
     line-height: 1.7;
   }
   .hero-meta {
@@ -317,7 +438,11 @@
   .btn-ghost { background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.45); color: var(--text); }
 
   /* SECTIONS */
-  section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+  section {
+    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
+    padding: 80px 0;
+    margin: 0 auto;
+  }
   .section-pt-60 { padding-top: 60px; }
   .section-label {
     font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
@@ -328,7 +453,7 @@
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700; line-height: 1.15; margin-bottom: 20px;
   }
-  .section-desc { color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: 650px; }
+  .section-desc { color: var(--muted); font-size: 1rem; line-height: 1.75; max-width: var(--copy-max); }
   .mb-20 { margin-bottom: 20px; }
   .mt-20 { margin-top: 20px; }
 
@@ -362,6 +487,143 @@
   .themes-grid-tight { margin-top: 36px; }
   .theme-card { padding: 30px 24px; border-radius: 18px; transition: transform 0.25s, box-shadow 0.25s; }
   .theme-card:hover { transform: translateY(-6px); box-shadow: 0 16px 50px var(--glass-shadow); }
+  .theme-card.glass {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.14) 34%, rgba(140, 205, 255, 0.16) 68%, rgba(73, 126, 226, 0.12) 100%),
+      linear-gradient(125deg, rgba(27, 86, 188, 0.14), rgba(130, 207, 255, 0.08));
+    -webkit-backdrop-filter: blur(26px) saturate(205%);
+    backdrop-filter: blur(26px) saturate(205%);
+    border: 1px solid rgba(255,255,255,0.42);
+    box-shadow:
+      0 20px 42px rgba(67, 98, 145, 0.18),
+      0 8px 22px rgba(111, 180, 255, 0.14),
+      inset 0 1px 0 rgba(255,255,255,0.8),
+      inset 0 -12px 20px rgba(61, 124, 214, 0.08);
+    isolation: isolate;
+  }
+  .theme-card.glass::before,
+  .theme-card.glass::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .theme-card.glass::before {
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0.14) 28%, rgba(255,255,255,0) 58%);
+    opacity: 1;
+  }
+  .theme-card.glass::after {
+    width: 200px;
+    height: 200px;
+    top: -125px;
+    left: -40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.74) 0%, rgba(255,255,255,0.18) 34%, rgba(255,255,255,0) 74%);
+    filter: blur(12px);
+    opacity: 0.86;
+  }
+  .theme-card.glass > * {
+    position: relative;
+    z-index: 1;
+  }
+  .theme-card.glass:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow:
+      0 26px 54px rgba(67, 98, 145, 0.22),
+      0 10px 28px rgba(111, 180, 255, 0.18),
+      inset 0 1px 0 rgba(255,255,255,0.84),
+      inset 0 -14px 22px rgba(61, 124, 214, 0.12);
+  }
+  .theme-card.glass .theme-icon {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.44), rgba(255,255,255,0.14)),
+      rgba(108, 181, 255, 0.12);
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow:
+      0 10px 18px rgba(78, 118, 173, 0.12),
+      inset 0 1px 0 rgba(255,255,255,0.78);
+  }
+  .theme-card.glass .theme-icon svg {
+    stroke: #1f65cb;
+  }
+  .theme-card.glass h3 {
+    color: #18345d;
+  }
+  .theme-card.glass p {
+    color: rgba(67, 83, 113, 0.9);
+  }
+  .home-highlight-card {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0.15) 34%, rgba(145, 210, 255, 0.18) 68%, rgba(71, 128, 231, 0.14) 100%),
+      linear-gradient(125deg, rgba(27, 86, 188, 0.18), rgba(130, 207, 255, 0.1));
+    -webkit-backdrop-filter: blur(28px) saturate(215%);
+    backdrop-filter: blur(28px) saturate(215%);
+    border: 1px solid rgba(255,255,255,0.46);
+    box-shadow:
+      0 22px 46px rgba(67, 98, 145, 0.2),
+      0 8px 24px rgba(111, 180, 255, 0.16),
+      inset 0 1px 0 rgba(255,255,255,0.82),
+      inset 0 -14px 22px rgba(61, 124, 214, 0.1);
+    isolation: isolate;
+  }
+  .home-highlight-card::before,
+  .home-highlight-card::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .home-highlight-card::before {
+    inset: 1px;
+    border-radius: inherit;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.16) 28%, rgba(255,255,255,0) 58%);
+    opacity: 1;
+  }
+  .home-highlight-card::after {
+    width: 220px;
+    height: 220px;
+    top: -135px;
+    left: -45px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.2) 34%, rgba(255,255,255,0) 74%);
+    filter: blur(12px);
+    opacity: 0.9;
+  }
+  .home-highlight-card > * {
+    position: relative;
+    z-index: 1;
+  }
+  .home-highlight-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow:
+      0 28px 56px rgba(67, 98, 145, 0.24),
+      0 10px 28px rgba(111, 180, 255, 0.2),
+      inset 0 1px 0 rgba(255,255,255,0.86),
+      inset 0 -16px 24px rgba(61, 124, 214, 0.14);
+  }
+  .home-highlight-card .theme-icon {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.48), rgba(255,255,255,0.16)),
+      rgba(108, 181, 255, 0.14);
+    border: 1px solid rgba(255,255,255,0.44);
+    box-shadow:
+      0 10px 18px rgba(78, 118, 173, 0.14),
+      inset 0 1px 0 rgba(255,255,255,0.82);
+  }
+  .home-highlight-card .theme-icon svg {
+    stroke: #1f65cb;
+  }
+  .home-highlight-card h3 {
+    color: #18345d;
+  }
+  .home-highlight-card p {
+    color: rgba(67, 83, 113, 0.92);
+  }
   .theme-icon {
     width: 48px; height: 48px; border-radius: 14px; background: rgba(42,109,217,0.1);
     display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
@@ -374,12 +636,71 @@
   .speakers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
   .speaker-card { padding: 28px 20px; border-radius: 18px; text-align: center; transition: transform 0.25s; }
   .speaker-card:hover { transform: translateY(-5px); }
+  .speaker-card.glass {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.54) 0%, rgba(255,255,255,0.16) 34%, rgba(142, 207, 255, 0.18) 68%, rgba(80, 130, 228, 0.14) 100%),
+      linear-gradient(125deg, rgba(26, 87, 188, 0.16), rgba(129, 208, 255, 0.1));
+    -webkit-backdrop-filter: blur(28px) saturate(215%);
+    backdrop-filter: blur(28px) saturate(215%);
+    border: 1px solid rgba(255,255,255,0.44);
+    box-shadow:
+      0 22px 44px rgba(69, 100, 146, 0.18),
+      0 8px 24px rgba(110, 181, 255, 0.14),
+      inset 0 1px 0 rgba(255,255,255,0.82),
+      inset 0 -14px 22px rgba(61, 124, 214, 0.1);
+    isolation: isolate;
+  }
+  .speaker-card.glass::before,
+  .speaker-card.glass::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .speaker-card.glass::before {
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.16) 30%, rgba(255,255,255,0) 60%);
+    opacity: 1;
+  }
+  .speaker-card.glass::after {
+    width: 180px;
+    height: 180px;
+    top: -110px;
+    left: -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.18) 36%, rgba(255,255,255,0) 74%);
+    filter: blur(12px);
+    opacity: 0.88;
+  }
+  .speaker-card.glass > * {
+    position: relative;
+    z-index: 1;
+  }
+  .speaker-card.glass:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow:
+      0 28px 56px rgba(69, 100, 146, 0.22),
+      0 10px 28px rgba(110, 181, 255, 0.18),
+      inset 0 1px 0 rgba(255,255,255,0.86),
+      inset 0 -16px 24px rgba(61, 124, 214, 0.14);
+  }
   .speaker-avatar {
     width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 16px;
     background: linear-gradient(135deg, #c7daf5 0%, #b2f0e8 100%);
     display: flex; align-items: center; justify-content: center;
     font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--accent);
     border: 2px solid var(--glass-border);
+  }
+  .speaker-card.glass .speaker-avatar {
+    background:
+      linear-gradient(145deg, rgba(255,255,255,0.7), rgba(255,255,255,0.18)),
+      linear-gradient(135deg, #cde2fb 0%, #b9f2eb 100%);
+    border-color: rgba(255,255,255,0.6);
+    box-shadow:
+      0 12px 22px rgba(84, 126, 184, 0.18),
+      inset 0 1px 0 rgba(255,255,255,0.84);
   }
   .speaker-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
   .speaker-role { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
@@ -395,9 +716,40 @@
   .tab-btn.active, .tab-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
   .schedule-day { display: none; }
   .schedule-day.active { display: block; }
+  .schedule-day-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+  .schedule-track {
+    padding: 24px;
+    border-radius: 24px;
+  }
+  .schedule-track-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .schedule-track-head h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+  .schedule-track-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
   .schedule-item {
     display: flex; gap: 20px; padding: 20px 24px; border-radius: 14px; margin-bottom: 12px;
     align-items: flex-start;
+  }
+  .schedule-track .schedule-item:last-child {
+    margin-bottom: 0;
   }
   .schedule-time { font-size: 0.82rem; color: var(--muted); min-width: 90px; padding-top: 3px; }
   .schedule-content h3 { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
@@ -415,11 +767,63 @@
   .venue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; margin-top: 40px; }
   .venue-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; margin-bottom: 12px; }
   .venue-info p { color: var(--muted); line-height: 1.75; margin-bottom: 16px; font-size: 0.95rem; }
+  .venue-card,
+  .venue-side-card,
+  .venue-map {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(150deg, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0.18) 34%, rgba(143, 208, 255, 0.18) 68%, rgba(80, 130, 228, 0.14) 100%),
+      linear-gradient(125deg, rgba(26, 87, 188, 0.16), rgba(129, 208, 255, 0.1));
+    -webkit-backdrop-filter: blur(28px) saturate(215%);
+    backdrop-filter: blur(28px) saturate(215%);
+    border: 1px solid rgba(255,255,255,0.46);
+    box-shadow:
+      0 24px 50px rgba(69, 100, 146, 0.18),
+      0 10px 26px rgba(110, 181, 255, 0.14),
+      inset 0 1px 0 rgba(255,255,255,0.84),
+      inset 0 -14px 24px rgba(61, 124, 214, 0.1);
+    isolation: isolate;
+  }
+  .venue-card::before,
+  .venue-card::after,
+  .venue-side-card::before,
+  .venue-side-card::after,
+  .venue-map::before,
+  .venue-map::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .venue-card::before,
+  .venue-side-card::before,
+  .venue-map::before {
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.16) 30%, rgba(255,255,255,0) 60%);
+    opacity: 1;
+  }
+  .venue-card::after,
+  .venue-side-card::after,
+  .venue-map::after {
+    width: 220px;
+    height: 220px;
+    top: -135px;
+    left: -45px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.18) 36%, rgba(255,255,255,0) 74%);
+    filter: blur(12px);
+    opacity: 0.9;
+  }
+  .venue-card > *,
+  .venue-side-card > *,
+  .venue-map > * {
+    position: relative;
+    z-index: 1;
+  }
   .venue-map {
     border-radius: 18px; overflow: hidden; height: 280px;
-    background: linear-gradient(135deg, #d6e4f7 0%, #c7f5ed 100%);
     display: flex; align-items: center; justify-content: center;
-    border: 1px solid var(--glass-border);
     font-size: 0.9rem; color: var(--muted);
     text-align: center; padding: 20px;
   }
@@ -432,7 +836,7 @@
   .venue-map-icon {
     margin: 0 auto 12px;
     display: block;
-    stroke: var(--accent);
+    stroke: #1f65cb;
     fill: none;
     stroke-width: 1.5;
   }
@@ -470,13 +874,13 @@
   }
 
   /* REGISTER PAGE */
-  .register-page { min-height: calc(100vh - var(--top-offset)); padding: 60px 5%; display: flex; align-items: flex-start; justify-content: center; }
-  .register-container { width: 100%; max-width: 780px; }
+  .register-page { min-height: calc(100vh - var(--top-offset)); padding: 60px var(--page-gutter); display: flex; align-items: flex-start; justify-content: center; }
+  .register-container { width: min(var(--hero-max), 100%); }
   .register-header { text-align: center; margin-bottom: 40px; }
   .register-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 10px; }
   .register-header p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
   .register-form { padding: 40px; border-radius: 24px; }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   .form-group { display: flex; flex-direction: column; gap: 7px; }
   .form-group.full { grid-column: 1 / -1; }
   .form-group label { font-size: 0.82rem; font-weight: 500; color: var(--text); }
@@ -494,19 +898,21 @@
   }
   .form-group textarea { resize: vertical; min-height: 90px; }
   .form-group select { cursor: pointer; }
-  .id-preview-wrap { margin-top: 24px; width: 50%; }
+  .id-preview-wrap { display: flex; flex-direction: column; gap: 10px; }
   .id-preview-label {
     font-size: 0.78rem;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 10px;
   }
   .id-preview-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 16px 18px;
     border-radius: 16px;
+    min-height: 90px;
   }
   .id-preview-name {
     font-weight: 600;
@@ -567,6 +973,10 @@
     :root {
       --header-h: 86px;
       --nav-h: 56px;
+      --page-gutter: 12px;
+      --content-max: 100%;
+      --hero-max: 100%;
+      --copy-max: 100%;
       --bridge-h: 24px;
       --top-offset: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 20px);
     }
@@ -575,7 +985,7 @@
     .top-header-side-logo-left { left: 8px; right: auto; }
     .hamburger { display: flex; }
     nav {
-      width: calc(100% - 24px);
+      width: calc(100% - (var(--page-gutter) * 2));
       padding: 0 18px;
     }
     .nav-links {
@@ -586,10 +996,12 @@
       bottom: auto;
       max-height: calc(100vh - (var(--header-h) + var(--bridge-h) + var(--nav-h) + 24px));
       overflow-y: auto;
-      background: rgba(240,244,248,0.6);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255,255,255,0.4);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.58), rgba(255,255,255,0.14) 48%, rgba(106, 182, 255, 0.22)),
+        rgba(231, 241, 252, 0.5);
+      -webkit-backdrop-filter: blur(28px) saturate(210%);
+      backdrop-filter: blur(28px) saturate(210%);
+      border: 1px solid rgba(255,255,255,0.54);
       border-radius: 28px;
       flex-direction: column; align-items: center; justify-content: center;
       gap: 2rem; font-size: 1.2rem;
@@ -601,8 +1013,10 @@
       margin: 0;
       padding: 28px 20px;
       box-shadow:
-        0 20px 50px rgba(78, 108, 152, 0.2),
-        inset 0 1px 0 rgba(255,255,255,0.7);
+        0 28px 60px rgba(78, 108, 152, 0.24),
+        0 0 24px rgba(146, 206, 255, 0.12),
+        inset 0 1px 0 rgba(255,255,255,0.84),
+        inset 0 -14px 24px rgba(73, 132, 214, 0.12);
     }
     .nav-links li {
       width: 100%;
@@ -627,12 +1041,15 @@
       padding: 0 56px;
       text-align: center;
     }
-    .about-grid, .venue-grid { grid-template-columns: 1fr; }
+    .schedule-day-grid, .about-grid, .venue-grid { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
     .form-group.full { grid-column: 1; }
     .id-preview-wrap { width: 100%; }
     .register-form { padding: 24px; }
-    section { padding: 60px 5%; }
+    section {
+      width: calc(100% - (var(--page-gutter) * 2));
+      padding: 60px 0;
+    }
     .hero-inner { padding: 28px 22px; }
   }
 </style>
@@ -658,15 +1075,15 @@
 <!-- NAV -->
 <nav>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#home" data-page-link="home" class="active" onclick="showPage('home',this)">Home</a></li>
-    <li><a href="#about" data-page-link="about" onclick="showPage('about',this)">About</a></li>
-    <li><a href="#themes" data-page-link="themes" onclick="showPage('themes',this)">Themes</a></li>
-    <li><a href="#speakers" data-page-link="speakers" onclick="showPage('speakers',this)">Speakers</a></li>
-    <li><a href="#schedule" data-page-link="schedule" onclick="showPage('schedule',this)">Schedule</a></li>
-    <li><a href="#workshop" data-page-link="workshop" onclick="showPage('workshop',this)">Workshop</a></li>
-    <li><a href="#venue" data-page-link="venue" onclick="showPage('venue',this)">Venue</a></li>
-    <li><a href="#sponsors" data-page-link="sponsors" onclick="showPage('sponsors',this)">Sponsors</a></li>
-    <li><a href="#register" data-page-link="register" onclick="showPage('register',this)">Register</a></li>
+    <li><a href="#home" data-page-link="home" class="active" onclick="showPage('home',this)"><span>Home</span></a></li>
+    <li><a href="#about" data-page-link="about" onclick="showPage('about',this)"><span>About</span></a></li>
+    <li><a href="#themes" data-page-link="themes" onclick="showPage('themes',this)"><span>Themes</span></a></li>
+    <li><a href="#speakers" data-page-link="speakers" onclick="showPage('speakers',this)"><span>Speakers</span></a></li>
+    <li><a href="#schedule" data-page-link="schedule" onclick="showPage('schedule',this)"><span>Schedule</span></a></li>
+    <li><a href="#workshop" data-page-link="workshop" onclick="showPage('workshop',this)"><span>Workshop</span></a></li>
+    <li><a href="#venue" data-page-link="venue" onclick="showPage('venue',this)"><span>Venue</span></a></li>
+    <li><a href="#sponsors" data-page-link="sponsors" onclick="showPage('sponsors',this)"><span>Sponsors</span></a></li>
+    <li><a href="#register" data-page-link="register" onclick="showPage('register',this)"><span>Register</span></a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -677,7 +1094,7 @@
 <div class="page active" id="page-home">
   <div class="page-content">
     <div class="hero">
-      <div class="hero-inner glass">
+      <div class="hero-inner hero-glass">
                 <h1>
           <span class="event-kicker">
             11<sup>th</sup> Annual
@@ -717,22 +1134,22 @@ Join a distinguished global community of researchers, clinicians, and industry l
       <h2 class="section-title">Two Days of Transformative Science</h2>
       <p class="section-desc">The 11<sup>th</sup> Annual Cell and Gene Therapy Symposium brings together over 100 experts from academia, clinical practice, and biotech to explore the latest breakthroughs in curative therapies.</p>
       <div class="themes-grid themes-grid-tight">
-        <div class="theme-card glass fade-in">
+        <div class="theme-card home-highlight-card fade-in">
           <div class="theme-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
           <h3>Cutting-Edge Research</h3>
           <p>Hear directly from principal investigators publishing in leading journals on the latest discoveries shaping the field.</p>
         </div>
-        <div class="theme-card glass fade-in">
+        <div class="theme-card home-highlight-card fade-in">
           <div class="theme-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
           <h3>Clinical Translation</h3>
           <p>Case studies and data from pivotal trials bringing cell and gene therapies from bench to bedside worldwide.</p>
         </div>
-        <div class="theme-card glass fade-in">
+        <div class="theme-card home-highlight-card fade-in">
           <div class="theme-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <h3>Networking</h3>
           <p>Connect with 100+ thought leaders, fostering collaborations that accelerate the development of next-generation therapies.</p>
         </div>
-        <div class="theme-card glass fade-in">
+        <div class="theme-card home-highlight-card fade-in">
           <div class="theme-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
           <h3>Industry Showcase</h3>
           <p>Explore innovative platforms, tools, and technologies from leading biotech and pharma companies in the exhibition hall.</p>
@@ -889,26 +1306,72 @@ Join a distinguished global community of researchers, clinicians, and industry l
         <button class="tab-btn" onclick="showDay(1,this)">Day 2 · Oct 10</button>
       </div>
       <div class="schedule-day active" id="day-0">
-        <div class="schedule-item glass"><div class="schedule-time">08:00 - 09:00</div><div class="schedule-content"><h3>Registration & Welcome Coffee</h3><p>Foyer, Level 1</p><span class="schedule-tag tag-break">Break</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">09:00 - 09:45</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Keynote session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">09:45 - 10:30</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Keynote session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">10:30 - 11:00</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">11:00 - 12:30</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">12:30 - 13:30</div><div class="schedule-content"><h3>Networking Lunch</h3><p>Scudder Lawn</p><span class="schedule-tag tag-break">Lunch</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">13:30 - 15:00</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Afternoon session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">15:00 - 15:30</div><div class="schedule-content"><h3>Afternoon Break</h3><span class="schedule-tag tag-break">Break</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">15:30 - 17:00</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Late afternoon session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">18:30 - 21:00</div><div class="schedule-content"><h3>Welcome Gala Dinner</h3><p>Eden Garden</p><span class="schedule-tag tag-break">Social</span></div></div>
+        <div class="schedule-day-grid">
+          <div class="schedule-track glass">
+            <div class="schedule-track-head">
+              <h3>Hall A</h3>
+              <span class="schedule-track-label">Parallel Track</span>
+            </div>
+            <div class="schedule-item glass"><div class="schedule-time">08:00 - 09:00</div><div class="schedule-content"><h3>Registration & Welcome Coffee</h3><p>Foyer check-in, badge collection, and light refreshments.</p><span class="schedule-tag tag-break">Arrival</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">09:00 - 09:45</div><div class="schedule-content"><h3>Opening Plenary: State of the CGT Ecosystem</h3><p>Conference-wide opening session with symposium leadership and invited keynote faculty.</p><span class="schedule-tag tag-keynote">Plenary</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">09:45 - 10:30</div><div class="schedule-content"><h3>Keynote: Next-Generation CAR-T Platforms</h3><p>Emerging engineering strategies to improve potency, persistence, and safety.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">10:30 - 11:00</div><div class="schedule-content"><h3>Coffee & Poster Viewing</h3><p>Networking break in the exhibition foyer.</p><span class="schedule-tag tag-break">Break</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">11:00 - 12:30</div><div class="schedule-content"><h3>Session A1: Viral Vector Innovation</h3><p>Lentiviral and AAV design, payload optimization, and scalable process development.</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">12:30 - 13:30</div><div class="schedule-content"><h3>Networking Lunch</h3><p>Hosted on Scudder Lawn for all delegates.</p><span class="schedule-tag tag-break">Lunch</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">13:30 - 15:00</div><div class="schedule-content"><h3>Session A2: Gene Editing for Hematologic Disorders</h3><p>Clinical data and translational lessons from CRISPR, base editing, and HSC programs.</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">15:00 - 15:30</div><div class="schedule-content"><h3>Afternoon Break</h3><p>Refreshments and sponsor showcase.</p><span class="schedule-tag tag-break">Break</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">15:30 - 17:00</div><div class="schedule-content"><h3>Panel A: Clinical Translation in India</h3><p>Hospital readiness, trial execution, and manufacturing partnerships for regional deployment.</p><span class="schedule-tag tag-panel">Panel</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">18:30 - 21:00</div><div class="schedule-content"><h3>Welcome Gala Dinner</h3><p>Eden Garden reception for all registered attendees.</p><span class="schedule-tag tag-break">Social</span></div></div>
+          </div>
+          <div class="schedule-track glass">
+            <div class="schedule-track-head">
+              <h3>Hall B</h3>
+              <span class="schedule-track-label">Parallel Track</span>
+            </div>
+            <div class="schedule-item glass"><div class="schedule-time">08:00 - 09:00</div><div class="schedule-content"><h3>Registration & Welcome Coffee</h3><p>Foyer check-in, badge collection, and light refreshments.</p><span class="schedule-tag tag-break">Arrival</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">09:00 - 09:45</div><div class="schedule-content"><h3>Opening Plenary: State of the CGT Ecosystem</h3><p>Conference-wide opening session livestreamed simultaneously in both halls.</p><span class="schedule-tag tag-keynote">Plenary</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">09:45 - 10:30</div><div class="schedule-content"><h3>Keynote: Regulatory Outlook for Advanced Therapies</h3><p>Global regulatory trends shaping IND, ATMP, and fast-track development pathways.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">10:30 - 11:00</div><div class="schedule-content"><h3>Coffee & Poster Viewing</h3><p>Networking break in the exhibition foyer.</p><span class="schedule-tag tag-break">Break</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">11:00 - 12:30</div><div class="schedule-content"><h3>Session B1: Cell Therapy Manufacturing Analytics</h3><p>Release testing, comparability frameworks, and digital quality systems for GMP suites.</p><span class="schedule-tag tag-workshop">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">12:30 - 13:30</div><div class="schedule-content"><h3>Networking Lunch</h3><p>Hosted on Scudder Lawn for all delegates.</p><span class="schedule-tag tag-break">Lunch</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">13:30 - 15:00</div><div class="schedule-content"><h3>Session B2: Solid Tumor Immunotherapy Strategies</h3><p>Novel targets, armored constructs, and tumor-microenvironment modulation.</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">15:00 - 15:30</div><div class="schedule-content"><h3>Afternoon Break</h3><p>Refreshments and sponsor showcase.</p><span class="schedule-tag tag-break">Break</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">15:30 - 17:00</div><div class="schedule-content"><h3>Workshop B: GMP Manufacturing for Clinical-Stage Programs</h3><p>Hands-on operational insights from industry experts and CMC facility leaders.</p><span class="schedule-tag tag-workshop">Workshop</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">18:30 - 21:00</div><div class="schedule-content"><h3>Welcome Gala Dinner</h3><p>Eden Garden reception for all registered attendees.</p><span class="schedule-tag tag-break">Social</span></div></div>
+          </div>
+        </div>
       </div>
       <div class="schedule-day" id="day-1">
-        <div class="schedule-item glass"><div class="schedule-time">08:30 - 09:15</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Morning keynote details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">09:15 - 10:00</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Morning keynote details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">10:00 - 10:30</div><div class="schedule-content"><h3>Coffee Break</h3><span class="schedule-tag tag-break">Break</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">10:30 - 12:00</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">12:00 - 13:00</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">13:00 - 14:30</div><div class="schedule-content"><h3>Workshop B: GMP Manufacturing for Clinical-Stage Programs</h3><p>Industry Experts</p><span class="schedule-tag tag-workshop">Workshop</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">14:30 - 16:00</div><div class="schedule-content"><h3>Panel: Regulatory Pathways - FDA, EMA & Global Perspectives</h3><p>FDA, EMA Rep</p><span class="schedule-tag tag-panel">Panel</span></div></div>
-        <div class="schedule-item glass"><div class="schedule-time">16:00 - 17:30</div><div class="schedule-content"><h3>Speaker TBA</h3><p>Closing session details will be announced soon.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
+        <div class="schedule-day-grid">
+          <div class="schedule-track glass">
+            <div class="schedule-track-head">
+              <h3>Hall A</h3>
+              <span class="schedule-track-label">Parallel Track</span>
+            </div>
+            <div class="schedule-item glass"><div class="schedule-time">08:30 - 09:15</div><div class="schedule-content"><h3>Morning Keynote: Manufacturing Readiness for Pivotal Trials</h3><p>Scale-up, tech transfer, and comparability planning for late-stage programs.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">09:15 - 10:00</div><div class="schedule-content"><h3>Session A3: Translational Biomarkers & Potency</h3><p>Developing fit-for-purpose assays that connect product attributes to clinical outcomes.</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">10:00 - 10:30</div><div class="schedule-content"><h3>Coffee Break</h3><p>Networking with faculty and exhibitors.</p><span class="schedule-tag tag-break">Break</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">10:30 - 12:00</div><div class="schedule-content"><h3>Session A4: Rare Disease Gene Therapy Pipelines</h3><p>Platform learnings from neuromuscular, retinal, and metabolic disease programs.</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">12:00 - 13:00</div><div class="schedule-content"><h3>Roundtable: Investing in Academic CGT Hubs</h3><p>Funding models, infrastructure planning, and translational partnership opportunities.</p><span class="schedule-tag tag-panel">Roundtable</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">13:00 - 14:30</div><div class="schedule-content"><h3>Workshop A: Designing First-in-Human Studies</h3><p>Trial endpoints, dose escalation, and risk mitigation in early-phase CGT studies.</p><span class="schedule-tag tag-workshop">Workshop</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">14:30 - 16:00</div><div class="schedule-content"><h3>Panel: Regulatory Pathways - FDA, EMA & Global Perspectives</h3><p>Cross-region perspectives on CMC expectations, safety follow-up, and accelerated review.</p><span class="schedule-tag tag-panel">Panel</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">16:00 - 17:30</div><div class="schedule-content"><h3>Closing Plenary: The Next Decade of Curative Medicine</h3><p>Future directions in advanced therapies, access, and cross-sector collaboration.</p><span class="schedule-tag tag-keynote">Closing</span></div></div>
+          </div>
+          <div class="schedule-track glass">
+            <div class="schedule-track-head">
+              <h3>Hall B</h3>
+              <span class="schedule-track-label">Parallel Track</span>
+            </div>
+            <div class="schedule-item glass"><div class="schedule-time">08:30 - 09:15</div><div class="schedule-content"><h3>Morning Keynote: Allogeneic Cell Therapy Horizons</h3><p>Platform advances enabling off-the-shelf immune cell therapies across indications.</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">09:15 - 10:00</div><div class="schedule-content"><h3>Session B3: AI, Digital Twins & Process Control</h3><p>Data-driven manufacturing strategies for robust lot release and facility monitoring.</p><span class="schedule-tag tag-workshop">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">10:00 - 10:30</div><div class="schedule-content"><h3>Coffee Break</h3><p>Networking with faculty and exhibitors.</p><span class="schedule-tag tag-break">Break</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">10:30 - 12:00</div><div class="schedule-content"><h3>Session B4: Immune Monitoring in Cell Therapy Trials</h3><p>Correlating persistence, toxicity, and response with longitudinal immune profiling.</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">12:00 - 13:00</div><div class="schedule-content"><h3>Industry Spotlight: Platform Technologies & CDMO Partnerships</h3><p>Short talks from manufacturing, analytics, and vector technology partners.</p><span class="schedule-tag tag-panel">Spotlight</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">13:00 - 14:30</div><div class="schedule-content"><h3>Workshop B: GMP Manufacturing for Clinical-Stage Programs</h3><p>Operational planning, facility workflows, and readiness checklists for scale-up teams.</p><span class="schedule-tag tag-workshop">Workshop</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">14:30 - 16:00</div><div class="schedule-content"><h3>Panel: Patient Access, Ethics & Affordability</h3><p>Balancing innovation, health-system adoption, and long-term patient follow-up obligations.</p><span class="schedule-tag tag-panel">Panel</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">16:00 - 17:30</div><div class="schedule-content"><h3>Closing Plenary Livestream & Networking Wrap-Up</h3><p>Shared closing session followed by final faculty networking across both halls.</p><span class="schedule-tag tag-keynote">Closing</span></div></div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -955,7 +1418,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
               <small>Interactive map available upon registration</small>
             </div>
           </div>
-          <div class="glass committee-card mt-20">
+          <div class="glass committee-card venue-side-card mt-20">
             <h3 class="nearby-hotels-heading">Nearby Hotels</h3>
             <div class="nearby-hotels-list">
               * Park Inn, Raddison group (8 Km)<br>
@@ -1026,8 +1489,12 @@ Join a distinguished global community of researchers, clinicians, and industry l
           <form id="regForm">
             <div class="form-grid">
               <div class="form-group">
-                <label for="firstName">First Name & Middle Name (Do not include salutation)*</label>
-                <input type="text" id="firstName" placeholder="Jane Doe" required>
+                <label for="firstName">First Name (Do not include salutation)*</label>
+                <input type="text" id="firstName" placeholder="Jane" required>
+              </div>
+              <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" id="middleName" placeholder="Elizabeth. No middle name? Leave blank.">
               </div>
               <div class="form-group">
                 <label for="lastName">Last Name *</label>
@@ -1047,7 +1514,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
               </div>
               <div class="form-group">
                 <label for="email">Email Address *</label>
-                <input type="email" id="email" placeholder="janedoe.thomas@institution.edu" required>
+                <input type="email" id="email" placeholder="janeelizabeth.thomas@institution.edu" required>
               </div>
               <div class="form-group">
                 <label for="phone">Phone Number *</label>
@@ -1072,17 +1539,13 @@ Join a distinguished global community of researchers, clinicians, and industry l
                   <option>Non-Vegetarian</option>
                 </select>
               </div>
-              <div class="form-group full">
+              <div class="form-group">
                 <label for="researchInterests">Research Interests *</label>
                 <input type="text" id="researchInterests" placeholder="e.g. Cell Therapy, Gene Therapy, etc." required>
               </div>
-              <div class="form-group full">
+              <div class="form-group">
                 <label for="institution">Affiliated Institution *</label>
                 <input type="text" id="institution" placeholder="e.g. Massachusetts Institute of Technology" required>
-              </div>
-              <div class="form-group full">
-                <label for="address">Full Address *</label>
-                <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
               </div>
               <div class="form-group">
                 <label for="eventinfo">How did you hear about this event? *</label>
@@ -1098,15 +1561,19 @@ Join a distinguished global community of researchers, clinicians, and industry l
                 </select>
               </div>
               <div class="form-group">
-                <label for="eventInterest">Why are you interested in attending this event? *</label>
-                <input type="text" id="eventInterest" placeholder="Please share your reasons for attending" required>
+                <label for="address">Full Address *</label>
+                <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
               </div>
-            </div>
-            <div class="id-preview-wrap">
-              <div class="id-preview-label">ID Card Preview</div>
-              <div class="id-preview-card glass">
-                <div class="id-preview-name" id="previewFullName">First Name Last Name</div>
-                <div class="id-preview-inst" id="previewInstitution">Affiliated Institution</div>
+              <div class="form-group">
+                <label for="eventInterest">Why are you interested in attending this event? *</label>
+                <textarea id="eventInterest" placeholder="Please share your reasons for attending" required></textarea>
+              </div>
+              <div class="id-preview-wrap">
+                <div class="id-preview-label">ID Card Preview</div>
+                <div class="id-preview-card glass">
+                  <div class="id-preview-name" id="previewFullName">First Name Middle Name Last Name</div>
+                  <div class="id-preview-inst" id="previewInstitution">Affiliated Institution</div>
+                </div>
               </div>
             </div>
             <div class="form-submit">
@@ -1224,7 +1691,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
     tbody.innerHTML = regs.map((r,i) => `
       <tr>
         <td>${i+1}</td>
-        <td>${escHtml(r.firstName)} ${escHtml(r.lastName)}</td>
+        <td>${escHtml([r.firstName, r.middleName, r.lastName].filter(Boolean).join(' '))}</td>
         <td>${escHtml(r.email)}</td>
         <td>${escHtml(r.institution)}</td>
         <td>${escHtml(r.food)}</td>
@@ -1237,15 +1704,16 @@ Join a distinguished global community of researchers, clinicians, and industry l
   // ID CARD PREVIEW
   function updateIdPreview() {
     const firstName = document.getElementById('firstName').value.trim();
+    const middleName = document.getElementById('middleName').value.trim();
     const lastName = document.getElementById('lastName').value.trim();
     const institution = document.getElementById('institution').value.trim();
-    const fullName = `${firstName} ${lastName}`.trim();
+    const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ').trim();
 
-    document.getElementById('previewFullName').textContent = fullName || 'First Name Last Name';
+    document.getElementById('previewFullName').textContent = fullName || 'First Name Middle Name Last Name';
     document.getElementById('previewInstitution').textContent = institution || 'Affiliated Institution';
   }
 
-  ['firstName', 'lastName', 'institution'].forEach(id => {
+  ['firstName', 'middleName', 'lastName', 'institution'].forEach(id => {
     document.getElementById(id).addEventListener('input', updateIdPreview);
   });
   updateIdPreview();
@@ -1262,6 +1730,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
     e.preventDefault();
     const reg = {
       firstName: document.getElementById('firstName').value.trim(),
+      middleName: document.getElementById('middleName').value.trim(),
       lastName:  document.getElementById('lastName').value.trim(),
       dob:       document.getElementById('dob').value,
       gender:    document.getElementById('gender').value,
