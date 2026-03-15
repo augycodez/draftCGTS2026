@@ -880,6 +880,30 @@
   .register-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 10px; }
   .register-header p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
   .register-form { padding: 40px; border-radius: 24px; }
+  .register-step-switcher { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .register-step-btn {
+    flex: 1 1 220px;
+    min-height: 52px;
+    border-radius: 16px;
+    border: 1px solid rgba(150,170,210,0.34);
+    background: rgba(255,255,255,0.42);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .register-step-btn:hover,
+  .register-step-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 14px 28px rgba(42,109,217,0.2);
+  }
+  .register-step-btn:hover { transform: translateY(-1px); }
+  .register-step-panel { display: none; }
+  .register-step-panel.active { display: block; }
   .form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   .form-group { display: flex; flex-direction: column; gap: 7px; }
   .form-group.full { grid-column: 1 / -1; }
@@ -925,8 +949,55 @@
     color: var(--muted);
     line-height: 1.4;
   }
+  .payment-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px; }
+  .payment-card {
+    padding: 24px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.45);
+    border: 1px solid rgba(150,170,210,0.24);
+  }
+  .payment-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+  .payment-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .payment-highlight {
+    margin-top: 18px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(42,109,217,0.08);
+    border: 1px solid rgba(42,109,217,0.12);
+  }
+  .payment-summary { display: grid; gap: 12px; }
+  .payment-summary-item {
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.56);
+    border: 1px solid rgba(150,170,210,0.2);
+  }
+  .payment-summary-item span {
+    display: block;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
   .form-submit { margin-top: 28px; text-align: center; }
   .form-submit .btn { width: 100%; max-width: 300px; justify-content: center; font-size: 1rem; padding: 16px 32px; }
+  .form-actions {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .form-actions .btn { min-width: 180px; justify-content: center; }
   .form-notice { font-size: 0.8rem; color: var(--muted); text-align: center; margin-top: 14px; }
 
   /* SUCCESS MSG */
@@ -1046,6 +1117,7 @@
     .form-grid { grid-template-columns: 1fr; }
     .form-group.full { grid-column: 1; }
     .phone-fields { grid-template-columns: 1fr; }
+    .payment-grid { grid-template-columns: 1fr; }
     .id-preview-wrap { width: 100%; }
     .register-form { padding: 24px; }
     section {
@@ -1489,102 +1561,156 @@ Join a distinguished global community of researchers, clinicians, and industry l
 
         <div class="register-form glass">
           <form id="regForm">
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="firstName">First Name (Do not include salutation)*</label>
-                <input type="text" id="firstName" placeholder="Jane" required>
-              </div>
-              <div class="form-group">
-                <label for="middleName">Middle Name</label>
-                <input type="text" id="middleName" placeholder="Elizabeth. (No middle name? Leave blank.)">
-              </div>
-              <div class="form-group">
-                <label for="lastName">Last Name *</label>
-                <input type="text" id="lastName" placeholder="Thomas" required>
-              </div>
-              <div class="form-group">
-                <label for="dob">Date of Birth *</label>
-                <input type="date" id="dob" required>
-              </div>
-              <div class="form-group">
-                <label for="gender">Gender *</label>
-                <select id="gender" required>
-                  <option value="" disabled selected>Select gender</option>
-                  <option>Female</option>
-                  <option>Male</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" placeholder="janeelizabeth.thomas@institution.edu" required>
-              </div>
-              <div class="form-group">
-                <label for="countryCode">Phone Number *</label>
-                <div class="phone-fields">
-                  <input type="tel" id="countryCode" placeholder="0091" inputmode="tel" autocomplete="tel-country-code" required>
-                  <input type="tel" id="phoneNumber" placeholder="9876543210" inputmode="tel" autocomplete="tel-national" required>
+            <div class="register-step-switcher" role="tablist" aria-label="Registration steps">
+              <button type="button" class="register-step-btn active" id="stepBtnDetails" onclick="showRegisterStep('details')">Personal Details</button>
+              <button type="button" class="register-step-btn" id="stepBtnPayment" onclick="goToPaymentStep()">Payment</button>
+            </div>
+            <div class="register-step-panel active" id="registerStepDetails">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="firstName">First Name (Do not include salutation)*</label>
+                  <input type="text" id="firstName" placeholder="Jane" required>
+                </div>
+                <div class="form-group">
+                  <label for="middleName">Middle Name</label>
+                  <input type="text" id="middleName" placeholder="Elizabeth. (No middle name? Leave blank.)">
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name *</label>
+                  <input type="text" id="lastName" placeholder="Thomas" required>
+                </div>
+                <div class="form-group">
+                  <label for="dob">Date of Birth *</label>
+                  <input type="date" id="dob" required>
+                </div>
+                <div class="form-group">
+                  <label for="gender">Gender *</label>
+                  <select id="gender" required>
+                    <option value="" disabled selected>Select gender</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" placeholder="janeelizabeth.thomas@institution.edu" required>
+                </div>
+                <div class="form-group">
+                  <label for="countryCode">Phone Number *</label>
+                  <div class="phone-fields">
+                    <input type="tel" id="countryCode" placeholder="0091" inputmode="tel" autocomplete="tel-country-code" required>
+                    <input type="tel" id="phoneNumber" placeholder="9876543210" inputmode="tel" autocomplete="tel-national" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="qualification">Qualification *</label>
+                  <select id="qualification" required>
+                    <option value="" disabled selected>Select qualification</option>
+                    <option>B.Sc./B.Tech</option>
+                    <option>M.Sc./M.Tech</option>
+                    <option>Ph.D.</option>
+                    <option>M.B.B.S</option>
+                    <option>MD/Diploma</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="food">Food Preference *</label>
+                  <select id="food" required>
+                    <option value="" disabled selected>Select preference</option>
+                    <option>Vegetarian</option>
+                    <option>Non-Vegetarian</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="institution">Affiliated Institution *</label>
+                  <input type="text" id="institution" placeholder="e.g. Massachusetts Institute of Technology" required>
+                </div>
+                <div class="form-group">
+                  <label for="researchInterests">Research Interests *</label>
+                  <input type="text" id="researchInterests" placeholder="e.g. Cell Therapy, Gene Therapy, etc." required>
+                </div>
+                <div class="form-group">
+                  <label for="eventinfo">How did you hear about this event? *</label>
+                  <select id="eventinfo" required>
+                    <option value="" disabled selected>Select option</option>
+                    <option>X (formerly Twitter)</option>
+                    <option>Facebook</option>
+                    <option>LinkedIn</option>
+                    <option>CSCR Website</option>
+                    <option>CSCR Meet Email</option>
+                    <option>Colleague Recommendation</option>
+                    <option>Institutional Broadcast</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="address">Full Address *</label>
+                  <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="eventInterest">Why are you interested in attending this event? *</label>
+                  <textarea id="eventInterest" placeholder="Please share your reasons for attending" required></textarea>
+                </div>
+                <div class="id-preview-wrap">
+                  <div class="id-preview-label">ID Card Preview</div>
+                  <div class="id-preview-card glass">
+                    <div class="id-preview-name" id="previewFullName">First Name Middle Name Last Name</div>
+                    <div class="id-preview-inst" id="previewInstitution">Affiliated Institution</div>
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="qualification">Qualification *</label>
-                <select id="qualification" required>
-                  <option value="" disabled selected>Select qualification</option>
-                  <option>B.Sc./B.Tech</option>
-                  <option>M.Sc./M.Tech</option>
-                  <option>Ph.D.</option>
-                  <option>M.B.B.S</option>
-                  <option>MD/Diploma</option>
-                </select>
+              <div class="form-actions">
+                <button type="button" class="btn btn-primary" onclick="goToPaymentStep()">Next</button>
               </div>
-              <div class="form-group">
-                <label for="food">Food Preference *</label>
-                <select id="food" required>
-                  <option value="" disabled selected>Select preference</option>
-                  <option>Vegetarian</option>
-                  <option>Non-Vegetarian</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="researchInterests">Research Interests *</label>
-                <input type="text" id="researchInterests" placeholder="e.g. Cell Therapy, Gene Therapy, etc." required>
-              </div>
-              <div class="form-group">
-                <label for="institution">Affiliated Institution *</label>
-                <input type="text" id="institution" placeholder="e.g. Massachusetts Institute of Technology" required>
-              </div>
-              <div class="form-group">
-                <label for="eventinfo">How did you hear about this event? *</label>
-                <select id="eventinfo" required>
-                  <option value="" disabled selected>Select option</option>
-                  <option>X (formerly Twitter)</option>
-                  <option>Facebook</option>
-                  <option>LinkedIn</option>
-                  <option>CSCR Website</option>
-                  <option>CSCR Meet Email</option>
-                  <option>Colleague Recommendation</option>
-                  <option>Institutional Broadcast</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="address">Full Address *</label>
-                <textarea id="address" placeholder="Street, City, State/Province, ZIP, Country" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="eventInterest">Why are you interested in attending this event? *</label>
-                <textarea id="eventInterest" placeholder="Please share your reasons for attending" required></textarea>
-              </div>
-              <div class="id-preview-wrap">
-                <div class="id-preview-label">ID Card Preview</div>
-                <div class="id-preview-card glass">
-                  <div class="id-preview-name" id="previewFullName">First Name Middle Name Last Name</div>
-                  <div class="id-preview-inst" id="previewInstitution">Affiliated Institution</div>
+            </div>
+            <div class="register-step-panel" id="registerStepPayment">
+              <div class="payment-grid">
+                <div class="payment-card">
+                  <h3>Payment Page</h3>
+                  <p>Review your registration details, then complete the payment section before final submission.</p>
+                  <div class="payment-highlight">
+                    <p>The submit button is available on this page so attendees finish the form only after reaching the payment step.</p>
+                  </div>
+                  <div class="form-grid" style="margin-top: 20px;">
+                    <div class="form-group">
+                      <label for="paymentMethod">Payment Method *</label>
+                      <select id="paymentMethod" required>
+                        <option value="" disabled selected>Select payment method</option>
+                        <option>UPI</option>
+                        <option>Bank Transfer</option>
+                        <option>Credit / Debit Card</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="paymentReference">Transaction / Reference ID *</label>
+                      <input type="text" id="paymentReference" placeholder="Enter payment confirmation number" required>
+                    </div>
+                    <div class="form-group full">
+                      <label for="paymentNotes">Payment Notes</label>
+                      <textarea id="paymentNotes" placeholder="Add any payment details you'd like the organizers to know"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="payment-summary">
+                  <div class="payment-summary-item">
+                    <span>Attendee</span>
+                    <div id="paymentSummaryName">First Name Middle Name Last Name</div>
+                  </div>
+                  <div class="payment-summary-item">
+                    <span>Email</span>
+                    <div id="paymentSummaryEmail">your.email@example.com</div>
+                  </div>
+                  <div class="payment-summary-item">
+                    <span>Institution</span>
+                    <div id="paymentSummaryInstitution">Affiliated Institution</div>
+                  </div>
                 </div>
               </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-ghost" onclick="showRegisterStep('details')">Back</button>
+                <button type="submit" class="btn btn-primary">Submit Registration</button>
+              </div>
+              <p class="form-notice">By submitting, you agree to our privacy policy. Your data is stored securely and used solely for symposium logistics.</p>
             </div>
-            <div class="form-submit">
-              <button type="submit" class="btn btn-primary">Submit Registration</button>
-            </div>
-            <p class="form-notice">By submitting, you agree to our privacy policy. Your data is stored securely and used solely for symposium logistics.</p>
           </form>
         </div>
 
@@ -1635,6 +1761,23 @@ Join a distinguished global community of researchers, clinicians, and industry l
 </footer>
 
 <script>
+  const personalDetailFieldIds = [
+    'firstName',
+    'lastName',
+    'dob',
+    'gender',
+    'email',
+    'countryCode',
+    'phoneNumber',
+    'qualification',
+    'food',
+    'institution',
+    'researchInterests',
+    'eventinfo',
+    'address',
+    'eventInterest'
+  ];
+
   // PAGE NAV
   function setActiveNavLink(name) {
     document.querySelectorAll('[data-page-link]').forEach(link => {
@@ -1642,9 +1785,35 @@ Join a distinguished global community of researchers, clinicians, and industry l
     });
   }
 
+  function showRegisterStep(step) {
+    const isDetailsStep = step === 'details';
+    document.getElementById('registerStepDetails').classList.toggle('active', isDetailsStep);
+    document.getElementById('registerStepPayment').classList.toggle('active', !isDetailsStep);
+    document.getElementById('stepBtnDetails').classList.toggle('active', isDetailsStep);
+    document.getElementById('stepBtnPayment').classList.toggle('active', !isDetailsStep);
+    updatePaymentSummary();
+  }
+
+  function validatePersonalDetails() {
+    for (const id of personalDetailFieldIds) {
+      const field = document.getElementById(id);
+      if (field && !field.checkValidity()) {
+        field.reportValidity();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function goToPaymentStep() {
+    if (!validatePersonalDetails()) return;
+    showRegisterStep('payment');
+  }
+
   function setRegisterView(hasSubmission) {
     document.getElementById('regForm').style.display = hasSubmission ? 'none' : 'block';
     document.getElementById('successMsg').style.display = hasSubmission ? 'block' : 'none';
+    if (!hasSubmission) showRegisterStep('details');
   }
 
   function showPage(name, linkEl) {
@@ -1718,10 +1887,27 @@ Join a distinguished global community of researchers, clinicians, and industry l
     document.getElementById('previewInstitution').textContent = institution || 'Affiliated Institution';
   }
 
-  ['firstName', 'middleName', 'lastName', 'institution'].forEach(id => {
-    document.getElementById(id).addEventListener('input', updateIdPreview);
+  function updatePaymentSummary() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const middleName = document.getElementById('middleName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const institution = document.getElementById('institution').value.trim();
+    const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ').trim();
+
+    document.getElementById('paymentSummaryName').textContent = fullName || 'First Name Middle Name Last Name';
+    document.getElementById('paymentSummaryEmail').textContent = email || 'your.email@example.com';
+    document.getElementById('paymentSummaryInstitution').textContent = institution || 'Affiliated Institution';
+  }
+
+  ['firstName', 'middleName', 'lastName', 'institution', 'email'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      updateIdPreview();
+      updatePaymentSummary();
+    });
   });
   updateIdPreview();
+  updatePaymentSummary();
   setRegisterView(false);
   if (window.location.hash) {
     const initialPage = window.location.hash.slice(1);
@@ -1733,6 +1919,10 @@ Join a distinguished global community of researchers, clinicians, and industry l
   // FORM SUBMIT
   document.getElementById('regForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    if (!validatePersonalDetails()) {
+      showRegisterStep('details');
+      return;
+    }
     const reg = {
       firstName: document.getElementById('firstName').value.trim(),
       middleName: document.getElementById('middleName').value.trim(),
@@ -1750,6 +1940,9 @@ Join a distinguished global community of researchers, clinicians, and industry l
       food:      document.getElementById('food').value,
       eventinfo: document.getElementById('eventinfo').value,
       eventInterest: document.getElementById('eventInterest').value.trim(),
+      paymentMethod: document.getElementById('paymentMethod').value,
+      paymentReference: document.getElementById('paymentReference').value.trim(),
+      paymentNotes: document.getElementById('paymentNotes').value.trim(),
       timestamp: new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'})
     };
     saveRegistration(reg);
@@ -1757,6 +1950,8 @@ Join a distinguished global community of researchers, clinicians, and industry l
     renderRegList();
     document.getElementById('regForm').reset();
     updateIdPreview();
+    updatePaymentSummary();
+    showRegisterStep('details');
   });
 </script>
 </body>
