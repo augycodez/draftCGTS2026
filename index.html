@@ -973,6 +973,7 @@
     background: rgba(42,109,217,0.08);
     border: 1px solid rgba(42,109,217,0.12);
   }
+  .payment-form-grid { margin-top: 20px; }
   .payment-summary { display: grid; gap: 12px; }
   .payment-summary-item {
     padding: 14px 16px;
@@ -1019,6 +1020,81 @@
   .reg-table td { padding: 12px 14px; border-bottom: 1px solid rgba(150,170,210,0.2); }
   .reg-table tr:last-child td { border-bottom: none; }
   .reg-empty { text-align: center; padding: 30px; color: var(--muted); font-size: 0.9rem; }
+
+  /* CONTACT PAGE */
+  .contact-page { min-height: calc(100vh - var(--top-offset)); padding: 60px var(--page-gutter); display: flex; align-items: flex-start; justify-content: center; }
+  .contact-container { width: min(var(--hero-max), 100%); }
+  .contact-header { text-align: center; margin-bottom: 40px; }
+  .contact-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 10px; }
+  .contact-header p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; max-width: 700px; margin: 0 auto; }
+  .contact-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 24px; align-items: stretch; }
+  .contact-card { padding: 32px; border-radius: 24px; }
+  .contact-card h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    margin-bottom: 18px;
+  }
+  .contact-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+  .contact-card strong { color: var(--text); }
+  .contact-list { display: grid; gap: 14px; margin-top: 20px; }
+  .contact-item {
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.42);
+    border: 1px solid rgba(150,170,210,0.22);
+  }
+  .contact-item-label {
+    display: block;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .contact-item a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .contact-item a:hover { color: var(--accent); }
+  .contact-map-card { padding: 18px; border-radius: 24px; }
+  .contact-map-card h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+    padding: 0 8px;
+  }
+  .contact-map-card p {
+    color: var(--muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  .contact-map-frame {
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 18px;
+    display: block;
+    aspect-ratio: 4 / 3;
+  }
+  .contact-map-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 8px 4px;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .contact-map-link:hover { text-decoration: underline; }
 
   /* FOOTER */
   footer {
@@ -1118,8 +1194,10 @@
     .form-group.full { grid-column: 1; }
     .phone-fields { grid-template-columns: 1fr; }
     .payment-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
     .id-preview-wrap { width: 100%; }
     .register-form { padding: 24px; }
+    .contact-card { padding: 24px; }
     section {
       width: calc(100% - (var(--page-gutter) * 2));
       padding: 60px 0;
@@ -1149,17 +1227,18 @@
 <!-- NAV -->
 <nav>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#home" data-page-link="home" class="active" onclick="showPage('home',this)"><span>Home</span></a></li>
-    <li><a href="#about" data-page-link="about" onclick="showPage('about',this)"><span>About</span></a></li>
-    <li><a href="#themes" data-page-link="themes" onclick="showPage('themes',this)"><span>Themes</span></a></li>
-    <li><a href="#speakers" data-page-link="speakers" onclick="showPage('speakers',this)"><span>Speakers</span></a></li>
-    <li><a href="#schedule" data-page-link="schedule" onclick="showPage('schedule',this)"><span>Schedule</span></a></li>
-    <li><a href="#workshop" data-page-link="workshop" onclick="showPage('workshop',this)"><span>Workshop</span></a></li>
-    <li><a href="#venue" data-page-link="venue" onclick="showPage('venue',this)"><span>Venue</span></a></li>
-    <li><a href="#sponsors" data-page-link="sponsors" onclick="showPage('sponsors',this)"><span>Sponsors</span></a></li>
-    <li><a href="#register" data-page-link="register" onclick="showPage('register',this)"><span>Register</span></a></li>
+    <li><a href="#home" data-page-link="home" class="active"><span>Home</span></a></li>
+    <li><a href="#about" data-page-link="about"><span>About</span></a></li>
+    <li><a href="#themes" data-page-link="themes"><span>Themes</span></a></li>
+    <li><a href="#speakers" data-page-link="speakers"><span>Speakers</span></a></li>
+    <li><a href="#schedule" data-page-link="schedule"><span>Schedule</span></a></li>
+    <li><a href="#workshop" data-page-link="workshop"><span>Workshop</span></a></li>
+    <li><a href="#venue" data-page-link="venue"><span>Venue</span></a></li>
+    <li><a href="#sponsors" data-page-link="sponsors"><span>Sponsors</span></a></li>
+    <li><a href="#register" data-page-link="register"><span>Register</span></a></li>
+    <li><a href="#contact" data-page-link="contact"><span>Contact Us</span></a></li>
   </ul>
-  <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+  <button type="button" class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1197,7 +1276,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
           </div>
         </div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="showPage('register')">Register Now</button>
+          <button type="button" class="btn btn-primary" id="heroRegisterBtn">Register Now</button>
         </div>
       </div>
     </div>
@@ -1376,8 +1455,8 @@ Join a distinguished global community of researchers, clinicians, and industry l
       <h2 class="section-title">Scientific Schedule</h2>
       <p class="section-desc">Two full days of plenary sessions, panel discussions, and networking events. Will be updated soon.</p>
       <div class="schedule-tabs schedule-tabs-tight">
-        <button class="tab-btn active" onclick="showDay(0,this)">Day 1 · Oct 09</button>
-        <button class="tab-btn" onclick="showDay(1,this)">Day 2 · Oct 10</button>
+        <button type="button" class="tab-btn active" data-day-index="0">Day 1 · Oct 09</button>
+        <button type="button" class="tab-btn" data-day-index="1">Day 2 · Oct 10</button>
       </div>
       <div class="schedule-day active" id="day-0">
         <div class="schedule-day-grid">
@@ -1564,8 +1643,8 @@ Join a distinguished global community of researchers, clinicians, and industry l
         <div class="register-form glass">
           <form id="regForm">
             <div class="register-step-switcher" role="tablist" aria-label="Registration steps">
-              <button type="button" class="register-step-btn active" id="stepBtnDetails" onclick="showRegisterStep('details')">Personal Details</button>
-              <button type="button" class="register-step-btn" id="stepBtnPayment" onclick="goToPaymentStep()">Payment</button>
+              <button type="button" class="register-step-btn active" id="stepBtnDetails">Personal Details</button>
+              <button type="button" class="register-step-btn" id="stepBtnPayment">Payment</button>
             </div>
             <div class="register-step-panel active" id="registerStepDetails">
               <div class="form-grid">
@@ -1661,7 +1740,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
                 </div>
               </div>
               <div class="form-actions">
-                <button type="button" class="btn btn-primary" onclick="goToPaymentStep()">Next</button>
+                <button type="button" class="btn btn-primary" id="registerNextBtn">Next</button>
               </div>
             </div>
             <div class="register-step-panel" id="registerStepPayment">
@@ -1672,7 +1751,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
                   <div class="payment-highlight">
                     <p>The submit button is available on this page so attendees finish the form only after reaching the payment step.</p>
                   </div>
-                  <div class="form-grid" style="margin-top: 20px;">
+                  <div class="form-grid payment-form-grid">
                     <div class="form-group">
                       <label for="paymentMethod">Payment Method *</label>
                       <select id="paymentMethod" required>
@@ -1708,7 +1787,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
                 </div>
               </div>
               <div class="form-actions">
-                <button type="button" class="btn btn-ghost" onclick="showRegisterStep('details')">Back</button>
+                <button type="button" class="btn btn-ghost" id="registerBackBtn">Back</button>
                 <button type="submit" class="btn btn-primary">Submit Registration</button>
               </div>
               <p class="form-notice">By submitting, you agree to our privacy policy. Your data is stored securely and used solely for symposium logistics.</p>
@@ -1745,19 +1824,72 @@ Join a distinguished global community of researchers, clinicians, and industry l
   </div>
 </div>
 
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <div class="page-content">
+    <div class="contact-page">
+      <div class="contact-container">
+        <div class="contact-header">
+          <div class="section-label">Get In Touch</div>
+          <h1>Contact Us</h1>
+          <p>Reach the organizing team for venue guidance, symposium logistics, or registration-related support.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card glass">
+            <h2>Organizing Committee</h2>
+            <p><strong>11<sup>th</sup> Annual Cell &amp; Gene Therapy Symposium 2026</strong><br>Centre for Stem Cell Research<br>(A unit of BRIC-inStem, Bengaluru),<br>Christian Medical College Campus, <br>Bagayam, Vellore 632002,<br> Tamil Nadu, India.</p>
+            <div class="contact-list">
+              <div class="contact-item">
+                <span class="contact-item-label">Phone</span>
+                <a href="tel:+914162285168">+91-416-228-5168/5101</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-item-label">Mobile</span>
+                <a href="tel:+919894283445">+91-9894283445</a>
+              </div>
+              <div class="contact-item">
+                <span class="contact-item-label">Email</span>
+                <a href="mailto:cscrmeet@cmcvellore.ac.in">cscrmeet@cmcvellore.ac.in</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-map-card glass">
+            <h2>Location Map</h2>
+            <p>Find the Centre for Stem Cell Research at the Christian Medical College Campus in Bagayam, Vellore.</p>
+            <iframe
+              class="contact-map-frame"
+              title="Centre for Stem Cell Research, Christian Medical College Campus, Bagayam, Vellore"
+              src="https://www.google.com/maps?q=Centre%20for%20Stem%20Cell%20Research%2C%20Christian%20Medical%20College%20Campus%2C%20Bagayam%2C%20Vellore%20632002%2C%20Tamil%20Nadu%2C%20India&z=15&output=embed"
+              loading="lazy">
+            </iframe>
+            <a
+              class="contact-map-link"
+              href="https://www.google.com/maps/search/?api=1&query=Centre%20for%20Stem%20Cell%20Research%2C%20Christian%20Medical%20College%20Campus%2C%20Bagayam%2C%20Vellore%20632002%2C%20Tamil%20Nadu%2C%20India"
+              target="_blank"
+              rel="noopener noreferrer">
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">11<sup>th</sup> Annual Cell & Gene Therapy Symposium 2026 . October 09-10, 2026</div>
   <div class="footer-links">
-    <a href="#home" onclick="showPage('home')">Home</a>
-    <a href="#about" onclick="showPage('about')">About</a>
-    <a href="#themes" onclick="showPage('themes')">Themes</a>
-    <a href="#speakers" onclick="showPage('speakers')">Speakers</a>
-    <a href="#schedule" onclick="showPage('schedule')">Schedule</a>
-    <a href="#workshop" onclick="showPage('workshop')">Workshop</a>
-    <a href="#venue" onclick="showPage('venue')">Venue</a>
-    <a href="#sponsors" onclick="showPage('sponsors')">Sponsors</a>
-    <a href="#register" onclick="showPage('register')">Register</a>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#themes">Themes</a>
+    <a href="#speakers">Speakers</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#workshop">Workshop</a>
+    <a href="#venue">Venue</a>
+    <a href="#sponsors">Sponsors</a>
+    <a href="#register">Register</a>
+    <a href="#contact">Contact Us</a>
   </div>
   <p class="footer-copy"><sup>©</sup> 2026 Cell & Gene Therapy Symposium. All rights reserved. CSCR, CMC, Vellore.</p>
 </footer>
@@ -1830,6 +1962,22 @@ Join a distinguished global community of researchers, clinicians, and industry l
     if (name === 'register') renderRegList();
   }
 
+  document.querySelectorAll('[data-page-link]').forEach(link => {
+    link.addEventListener('click', event => {
+      event.preventDefault();
+      showPage(link.dataset.pageLink, link);
+    });
+  });
+
+  document.querySelectorAll('.footer-links a[href^="#"]').forEach(link => {
+    link.addEventListener('click', event => {
+      const pageName = link.getAttribute('href').slice(1);
+      if (!pageName) return;
+      event.preventDefault();
+      showPage(pageName, link);
+    });
+  });
+
   // HAMBURGER
   function toggleNav() {
     document.getElementById('navLinks').classList.toggle('open');
@@ -1838,11 +1986,20 @@ Join a distinguished global community of researchers, clinicians, and industry l
     document.getElementById('navLinks').classList.remove('open');
   }
 
+  document.getElementById('hamburger').addEventListener('click', toggleNav);
+  document.getElementById('heroRegisterBtn').addEventListener('click', () => showPage('register'));
+
   // SCHEDULE TABS
   function showDay(i, btn) {
     document.querySelectorAll('.schedule-day').forEach((d,j) => d.classList.toggle('active', j===i));
     document.querySelectorAll('.tab-btn').forEach((b,j) => b.classList.toggle('active', j===i));
   }
+
+  document.querySelectorAll('.tab-btn[data-day-index]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      showDay(Number(btn.dataset.dayIndex), btn);
+    });
+  });
 
   // LOCAL STORAGE BACKEND SIMULATION
   function getRegistrations() {
@@ -1908,6 +2065,10 @@ Join a distinguished global community of researchers, clinicians, and industry l
       updatePaymentSummary();
     });
   });
+  document.getElementById('stepBtnDetails').addEventListener('click', () => showRegisterStep('details'));
+  document.getElementById('stepBtnPayment').addEventListener('click', goToPaymentStep);
+  document.getElementById('registerNextBtn').addEventListener('click', goToPaymentStep);
+  document.getElementById('registerBackBtn').addEventListener('click', () => showRegisterStep('details'));
   updateIdPreview();
   updatePaymentSummary();
   setRegisterView(false);
