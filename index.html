@@ -1448,50 +1448,50 @@
   }
   @media (max-width: 768px) and (orientation: landscape) {
     :root {
-      --header-h: 64px;
-      --nav-h: 46px;
-      --bridge-h: 12px;
-      --top-offset: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 12px);
+      --header-h: 58px;
+      --nav-h: 42px;
+      --bridge-h: 10px;
+      --top-offset: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 10px);
     }
-    .top-header-logo { height: 50px; }
-    .top-header-side-logo { height: 32px; }
+    .top-header-logo { height: 44px; }
+    .top-header-side-logo { height: 28px; }
     .top-header {
-      padding: 0 14px;
-    }
-    .top-header-inner {
-      padding: 0 46px;
-    }
-    nav {
       padding: 0 12px;
     }
+    .top-header-inner {
+      padding: 0 40px;
+    }
+    nav {
+      padding: 0 10px;
+    }
     .nav-links {
-      top: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 6px);
-      max-height: calc(100vh - (var(--header-h) + var(--bridge-h) + var(--nav-h) + 12px));
+      top: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 4px);
+      max-height: calc(100vh - (var(--header-h) + var(--bridge-h) + var(--nav-h) + 8px));
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       align-items: stretch;
       justify-content: stretch;
-      gap: 0.55rem;
-      padding: 12px;
-      border-radius: 22px;
+      gap: 0.38rem;
+      padding: 8px;
+      border-radius: 18px;
+      overflow-y: hidden;
     }
     .nav-links li,
     .nav-links a {
       width: 100%;
-      min-height: 42px;
-      padding: 9px 12px;
-      font-size: 0.98rem;
     }
     .nav-links a {
-      min-height: 38px;
-      padding: 8px 10px;
-      font-size: 0.9rem;
+      min-height: 32px;
+      padding: 6px 8px;
+      font-size: 0.76rem;
+      line-height: 1.15;
+      text-align: center;
     }
     .hamburger {
-      right: 12px;
-      width: 40px;
-      height: 40px;
-      padding: 7px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      padding: 6px;
     }
   }
 </style>
