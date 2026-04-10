@@ -1326,6 +1326,8 @@
     nav {
       width: calc(100% - (var(--page-gutter) * 2));
       padding: 0 18px;
+      justify-content: flex-end;
+      overflow: visible;
     }
     .nav-links {
       position: fixed;
@@ -1372,6 +1374,9 @@
       position: absolute;
       right: 20px;
       z-index: 4;
+      width: 48px;
+      height: 48px;
+      border-radius: 999px;
     }
     .top-header {
       padding: 0 20px;
@@ -1441,6 +1446,51 @@
     .contact-map-card,
     .success-msg { padding: 20px; }
   }
+  @media (max-width: 768px) and (orientation: landscape) {
+    :root {
+      --header-h: 72px;
+      --nav-h: 50px;
+      --bridge-h: 16px;
+      --top-offset: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 16px);
+    }
+    .top-header-logo { height: 56px; }
+    .top-header-side-logo { height: 36px; }
+    .top-header {
+      padding: 0 16px;
+    }
+    .top-header-inner {
+      padding: 0 52px;
+    }
+    nav {
+      padding: 0 14px;
+    }
+    .nav-links {
+      top: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 8px);
+      max-height: calc(100vh - (var(--header-h) + var(--bridge-h) + var(--nav-h) + 16px));
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+      justify-content: stretch;
+      gap: 0.85rem;
+      padding: 18px 16px;
+      border-radius: 24px;
+    }
+    .nav-links li,
+    .nav-links a {
+      width: 100%;
+    }
+    .nav-links a {
+      min-height: 44px;
+      padding: 10px 12px;
+      font-size: 1rem;
+    }
+    .hamburger {
+      right: 14px;
+      width: 44px;
+      height: 44px;
+      padding: 8px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -1475,7 +1525,7 @@
     <li><a href="#register" data-page-link="register"><span>Register</span></a></li>
     <li><a href="#contact" data-page-link="contact"><span>Contact Us</span></a></li>
   </ul>
-  <button type="button" class="hamburger" id="hamburger" aria-label="Menu">
+  <button type="button" class="hamburger" id="hamburger" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -2358,14 +2408,42 @@ Join a distinguished global community of researchers, clinicians, and industry l
   });
 
   // HAMBURGER
-  function toggleNav() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
-  function closeNav() {
-    document.getElementById('navLinks').classList.remove('open');
+  const navLinks = document.getElementById('navLinks');
+  const hamburgerBtn = document.getElementById('hamburger');
+  let lastNavToggleAt = 0;
+
+  function setNavOpen(isOpen) {
+    navLinks.classList.toggle('open', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
   }
 
-  document.getElementById('hamburger').addEventListener('click', toggleNav);
+  function toggleNav(event) {
+    if (event) event.preventDefault();
+    const now = Date.now();
+    if (event && event.type === 'click' && now - lastNavToggleAt < 350) return;
+    lastNavToggleAt = now;
+    setNavOpen(!navLinks.classList.contains('open'));
+  }
+
+  function closeNav() {
+    setNavOpen(false);
+  }
+
+  hamburgerBtn.addEventListener('click', toggleNav);
+  hamburgerBtn.addEventListener('pointerup', toggleNav);
+
+  document.addEventListener('click', event => {
+    if (!navLinks.classList.contains('open')) return;
+    if (navLinks.contains(event.target) || hamburgerBtn.contains(event.target)) return;
+    closeNav();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeNav();
+  });
+
+  setNavOpen(false);
+
   document.getElementById('heroRegisterBtn').addEventListener('click', () => showPage('register'));
 
   // SCHEDULE TABS

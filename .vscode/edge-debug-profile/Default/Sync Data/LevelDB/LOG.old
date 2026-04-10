@@ -1,2 +1,3 @@
-2026/04/10-13:29:00.998 5970 Creating DB C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\Sync Data\LevelDB since it was missing.
-2026/04/10-13:29:01.016 5970 Reusing MANIFEST C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\Sync Data\LevelDB/MANIFEST-000001
+2026/04/10-13:38:43.074 26c0 Reusing MANIFEST C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\Sync Data\LevelDB/MANIFEST-000001
+2026/04/10-13:38:43.076 26c0 Recovering log #3
+2026/04/10-13:38:43.077 26c0 Reusing old log C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\Sync Data\LevelDB/000003.log 
