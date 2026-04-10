@@ -1448,21 +1448,21 @@
   }
   @media (max-width: 768px) and (orientation: landscape) {
     :root {
-      --header-h: 58px;
-      --nav-h: 42px;
+      --header-h: 54px;
+      --nav-h: 40px;
       --bridge-h: 10px;
       --top-offset: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 10px);
     }
-    .top-header-logo { height: 44px; }
-    .top-header-side-logo { height: 28px; }
+    .top-header-logo { height: 38px; }
+    .top-header-side-logo { height: 24px; }
     .top-header {
-      padding: 0 12px;
+      padding: 0 10px;
     }
     .top-header-inner {
-      padding: 0 40px;
+      padding: 0 34px;
     }
     nav {
-      padding: 0 10px;
+      padding: 0 8px;
     }
     .nav-links {
       top: calc(var(--header-h) + var(--bridge-h) + var(--nav-h) + 4px);
@@ -1471,27 +1471,37 @@
       grid-template-columns: repeat(5, minmax(0, 1fr));
       align-items: stretch;
       justify-content: stretch;
-      gap: 0.38rem;
-      padding: 8px;
-      border-radius: 18px;
+      gap: 0.32rem;
+      padding: 7px;
+      border-radius: 16px;
       overflow-y: hidden;
     }
-    .nav-links li,
-    .nav-links a {
+    .nav-links li {
       width: 100%;
+      min-width: 0;
     }
     .nav-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       min-height: 32px;
-      padding: 6px 8px;
-      font-size: 0.76rem;
-      line-height: 1.15;
+      width: 100%;
+      min-width: 0;
+      padding: 5px 6px;
+      font-size: 0.72rem;
+      line-height: 1.05;
       text-align: center;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    .nav-links a span {
+      white-space: normal;
     }
     .hamburger {
-      right: 10px;
-      width: 36px;
-      height: 36px;
-      padding: 6px;
+      right: 8px;
+      width: 34px;
+      height: 34px;
+      padding: 5px;
     }
   }
 </style>
