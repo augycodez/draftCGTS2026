@@ -1,6 +1,6 @@
-2026/04/10-13:38:45.351 26e0 Reusing MANIFEST C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/04/10-13:38:45.353 26e0 Recovering log #10
-2026/04/10-13:38:45.358 26e0 Reusing old log C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\EdgeCoupons/coupons_data.db/000010.log 
-2026/04/10-13:38:45.432 1274 Level-0 table #14: started
-2026/04/10-13:38:45.440 1274 Level-0 table #14: 682276 bytes OK
-2026/04/10-13:38:45.442 1274 Delete type=0 #10
+2026/04/10-13:41:43.775 20f4 Reusing MANIFEST C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/10-13:41:43.780 20f4 Recovering log #13
+2026/04/10-13:41:43.781 20f4 Reusing old log C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\EdgeCoupons/coupons_data.db/000013.log 
+2026/04/10-13:41:43.855 1cec Level-0 table #17: started
+2026/04/10-13:41:43.859 1cec Level-0 table #17: 682276 bytes OK
+2026/04/10-13:41:43.862 1cec Delete type=0 #13
