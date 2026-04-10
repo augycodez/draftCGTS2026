@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Edge with remote debugging",
+      "type": "process",
+      "command": "powershell.exe",
+      "args": [
+        "-Command",
+        "& 'msedge.exe' --remote-debugging-port=9222 --user-data-dir=\"$(wslpath -w '${workspaceFolder}')/.vscode/edge-debug-profile\" \"$(wslpath -w '${workspaceFolder}')/index.html\""
+      ],
+      "presentation": {
+        "reveal": "never",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

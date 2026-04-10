@@ -1,14 +1,35 @@
 {
   "version": "0.2.0",
   "configurations": [
-    
+    {
+      "name": "Attach to Edge (Port 9222)",
+      "type": "msedge",
+      "request": "attach",
+      "port": 9222,
+      "address": "localhost",
+      "webRoot": "${workspaceFolder}",
+      "timeout": 30000
+    },
+    {
+      "name": "Launch Edge",
+      "request": "launch",
+      "type": "msedge",
+      "url": "http://127.0.0.1:8080",
+      "webRoot": "${workspaceFolder}",
+      "timeout": 30000,
+      "userDataDir": "${workspaceFolder}/.vscode/edge-debug-profile"
+    },
     {
       "name": "Open index.html (Edge)",
-      "type": "pwa-chrome",
+      "type": "msedge",
       "request": "launch",
       "file": "${workspaceFolder}/index.html",
       "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+      "userDataDir": "${workspaceFolder}/.vscode/edge-debug-profile",
+      "presentation": {
+        "group": "primary",
+        "order": 1
+      }
     }
   ]
 }

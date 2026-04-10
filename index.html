@@ -253,7 +253,21 @@
   }
   .nav-links a:hover::before, .nav-links a.active::before { opacity: 1; }
   .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 3;
+  }
   .hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
 
   /* PAGES */
@@ -458,10 +472,6 @@
   .hero-sub {
     font-size: 1.05rem; color: var(--muted); max-width: var(--copy-max); margin: 0 auto 36px;
     line-height: 1.7;
-  }
-  .hero-meta {
-    /* Apply staggered fade-in animation to meta pills */
-    /* The hero-inner already has a fadeUp animation, so these delays will layer on top. */
   }
   .hero-meta .meta-pill {
     opacity: 0; /* Start invisible for individual animation */
@@ -1338,7 +1348,7 @@
       opacity: 0;
       pointer-events: none;
       transition: transform 0.35s ease, opacity 0.35s ease;
-      z-index: 99;
+      z-index: 2;
       margin: 0;
       padding: 28px 20px;
       box-shadow:
@@ -1361,6 +1371,7 @@
     .hamburger {
       position: absolute;
       right: 20px;
+      z-index: 4;
     }
     .top-header {
       padding: 0 20px;

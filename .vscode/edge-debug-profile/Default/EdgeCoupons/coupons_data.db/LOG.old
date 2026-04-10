@@ -1,0 +1,5 @@
+2026/04/10-13:29:03.619 43ec Creating DB C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/04/10-13:29:03.637 43ec Reusing MANIFEST C:\Users\thamb\Documents\GIT\draftCGTS2026\.vscode\edge-debug-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/10-13:29:03.739 565c Level-0 table #5: started
+2026/04/10-13:29:03.747 565c Level-0 table #5: 682105 bytes OK
+2026/04/10-13:29:03.750 565c Delete type=0 #3
