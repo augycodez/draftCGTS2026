@@ -1338,21 +1338,21 @@
       max-height: calc(100vh - (var(--header-h) + var(--bridge-h) + var(--nav-h) + 24px));
       overflow-y: auto;
       background:
-        linear-gradient(160deg, rgba(255,255,255,0.58), rgba(255,255,255,0.14) 48%, rgba(106, 182, 255, 0.22)),
-        rgba(231, 241, 252, 0.5);
+        linear-gradient(160deg, rgba(244,248,253,0.94), rgba(234,242,251,0.88) 48%, rgba(192, 221, 249, 0.82)),
+        rgba(231, 241, 252, 0.8);
       -webkit-backdrop-filter: blur(28px) saturate(210%);
       backdrop-filter: blur(28px) saturate(210%);
       border: 1px solid rgba(255,255,255,0.54);
       border-radius: 28px;
-      flex-direction: column; align-items: center; justify-content: center;
-      gap: 2rem; font-size: 1.2rem;
+      flex-direction: column; align-items: stretch; justify-content: flex-start;
+      gap: 0.8rem; font-size: 1rem;
       transform: translateY(-14px);
       opacity: 0;
       pointer-events: none;
       transition: transform 0.35s ease, opacity 0.35s ease;
       z-index: 2;
       margin: 0;
-      padding: 28px 20px;
+      padding: 18px 16px;
       box-shadow:
         0 28px 60px rgba(78, 108, 152, 0.24),
         0 0 24px rgba(146, 206, 255, 0.12),
@@ -1478,6 +1478,9 @@
     .nav-links li,
     .nav-links a {
       width: 100%;
+      min-height: 42px;
+      padding: 9px 12px;
+      font-size: 0.98rem;
     }
     .nav-links a {
       min-height: 44px;
