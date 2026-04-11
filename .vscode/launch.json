@@ -2,13 +2,31 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch index.html (Edge)",
+      "type": "msedge",
+      "request": "attach",
+      "port": 9222,
+      "address": "localhost",
+      "webRoot": "${workspaceFolder}",
+      "timeout": 30000,
+      "preLaunchTask": "Start Edge with remote debugging",
+      "presentation": {
+        "group": "primary",
+        "order": 1
+      }
+    },
+    {
       "name": "Attach to Edge (Port 9222)",
       "type": "msedge",
       "request": "attach",
       "port": 9222,
       "address": "localhost",
       "webRoot": "${workspaceFolder}",
-      "timeout": 30000
+      "timeout": 30000,
+      "presentation": {
+        "group": "primary",
+        "order": 2
+      }
     },
     {
       "name": "Launch Edge",
@@ -17,7 +35,11 @@
       "url": "http://127.0.0.1:8080",
       "webRoot": "${workspaceFolder}",
       "timeout": 30000,
-      "userDataDir": "${workspaceFolder}/.vscode/edge-debug-profile"
+      "userDataDir": true,
+      "presentation": {
+        "group": "secondary",
+        "order": 1
+      }
     },
     {
       "name": "Open index.html (Edge)",
@@ -25,10 +47,10 @@
       "request": "launch",
       "file": "${workspaceFolder}/index.html",
       "webRoot": "${workspaceFolder}",
-      "userDataDir": "${workspaceFolder}/.vscode/edge-debug-profile",
+      "userDataDir": true,
       "presentation": {
-        "group": "primary",
-        "order": 1
+        "group": "secondary",
+        "order": 2
       }
     }
   ]
