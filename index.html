@@ -652,29 +652,6 @@
   }
   .theme-card.glass:hover {
     transform: translateY(-8px) scale(1.01);
-    box-shadow:
-      0 26px 54px rgba(67, 98, 145, 0.22),
-      0 10px 28px rgba(111, 180, 255, 0.18),
-      inset 0 1px 0 rgba(255,255,255,0.84),
-      inset 0 -14px 22px rgba(61, 124, 214, 0.12);
-  }
-  .theme-card.glass .theme-icon {
-    background:
-      linear-gradient(145deg, rgba(255,255,255,0.44), rgba(255,255,255,0.14)),
-      rgba(108, 181, 255, 0.12);
-    border: 1px solid rgba(255,255,255,0.4);
-    box-shadow:
-      0 10px 18px rgba(78, 118, 173, 0.12),
-      inset 0 1px 0 rgba(255,255,255,0.78);
-  }
-  .theme-card.glass .theme-icon svg {
-    stroke: #1f65cb;
-  }
-  .theme-card.glass h3 {
-    color: #18345d;
-  }
-  .theme-card.glass p {
-    color: rgba(67, 83, 113, 0.9);
   }
   .home-highlight-card {
     position: relative;
@@ -721,26 +698,6 @@
   }
   .home-highlight-card:hover {
     transform: translateY(-8px) scale(1.01);
-    box-shadow:
-      0 28px 56px rgba(67, 98, 145, 0.24),
-      0 10px 28px rgba(111, 180, 255, 0.2),
-      inset 0 1px 0 rgba(255,255,255,0.86),
-      inset 0 -16px 24px rgba(61, 124, 214, 0.14);
-  }
-  .home-highlight-card .theme-icon {
-    background:
-      linear-gradient(145deg, rgba(255,255,255,0.48), rgba(255,255,255,0.16)),
-      rgba(108, 181, 255, 0.14);
-    border: 1px solid rgba(255,255,255,0.44);
-    box-shadow:
-      0 10px 18px rgba(78, 118, 173, 0.14),
-      inset 0 1px 0 rgba(255,255,255,0.82);
-  }
-  .home-highlight-card .theme-icon svg {
-    stroke: #1f65cb;
-  }
-  .home-highlight-card h3 {
-    color: #18345d;
   }
   .home-highlight-card p {
     color: rgba(67, 83, 113, 0.92);
@@ -824,16 +781,6 @@
     border-radius: inherit;
     background: linear-gradient(180deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.16) 30%, rgba(255,255,255,0) 60%);
     opacity: 1;
-  }
-  .speaker-card.glass::after {
-    width: 180px;
-    height: 180px;
-    top: -110px;
-    left: -30px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.18) 36%, rgba(255,255,255,0) 74%);
-    filter: blur(12px);
-    opacity: 0.88;
   }
   .speaker-card.glass > * {
     position: relative;
@@ -1668,11 +1615,11 @@
             <div class="stat-label">Annual Edition</div>
           </div>
           <div class="stat-card glass">
-            <div class="stat-num">200+</div>
-            <div class="stat-label">Expected Delegates</div>
+            <div class="stat-num">300+</div>
+            <div class="stat-label">Expected Participants</div>
           </div>
           <div class="stat-card glass">
-            <div class="stat-num">30+</div>
+            <div class="stat-num">50+</div>
             <div class="stat-label">Invited Speakers</div>
           </div>
           <div class="stat-card glass">
@@ -1776,7 +1723,7 @@
 <div class="page" id="page-speakers">
   <div class="page-content">
     <section class="section-pt-60">
-      <h2 class="section-title">Featured Speakers</h2>
+      <h2 class="section-title">Speakers</h2>
       <p class="section-desc">CGTS 2026 brings together 50+ world-class speakers from leading academic medical centers, biotech companies, and regulatory bodies.</p>
       <div class="speakers-grid">
         <div class="speaker-card glass">
@@ -2400,7 +2347,7 @@
   }
 
   function setRegisterView(hasSubmission) {
-    document.getElementById('regForm').style.display = 'block';
+    document.getElementById('regForm').style.display = hasSubmission ? 'none' : 'block';
     document.getElementById('successMsg').style.display = hasSubmission ? 'block' : 'none';
     if (!hasSubmission) showRegisterStep('details');
   }
@@ -2465,7 +2412,6 @@
   }
 
   hamburgerBtn.addEventListener('click', toggleNav);
-  hamburgerBtn.addEventListener('pointerup', toggleNav);
 
   document.addEventListener('click', event => {
     if (!navLinks.classList.contains('open')) return;
@@ -2507,11 +2453,9 @@
     const tbody = document.getElementById('regTableBody');
     const section = document.getElementById('regListSection');
     if (!regs.length) {
-      section.classList.add('is-hidden');
       section.style.display = 'none';
       return;
     }
-    section.classList.remove('is-hidden');
     section.style.display = 'block';
     tbody.innerHTML = regs.map((r,i) => `
       <tr>
@@ -2526,36 +2470,26 @@
   }
   function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  // ID CARD PREVIEW
-  function updateIdPreview() {
+  // UPDATES PREVIEWS
+  function updatePreviews() {
     const firstName = document.getElementById('firstName').value.trim();
     const middleName = document.getElementById('middleName').value.trim();
     const lastName = document.getElementById('lastName').value.trim();
     const institution = document.getElementById('institution').value.trim();
+    const email = document.getElementById('email').value.trim();
     const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ').trim();
 
     document.getElementById('previewFullName').textContent = fullName || 'First Name Middle Name Last Name';
     document.getElementById('previewInstitution').textContent = institution || 'Affiliated Institution';
-  }
-
-  function updatePaymentSummary() {
-    const firstName = document.getElementById('firstName').value.trim();
-    const middleName = document.getElementById('middleName').value.trim();
-    const lastName = document.getElementById('lastName').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const institution = document.getElementById('institution').value.trim();
-    const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ').trim();
-
     document.getElementById('paymentSummaryName').textContent = fullName || 'First Name Middle Name Last Name';
     document.getElementById('paymentSummaryEmail').textContent = email || 'your.email@example.com';
     document.getElementById('paymentSummaryInstitution').textContent = institution || 'Affiliated Institution';
   }
 
+  function updatePaymentSummary() { updatePreviews(); }
+
   ['firstName', 'middleName', 'lastName', 'institution', 'email'].forEach(id => {
-    document.getElementById(id).addEventListener('input', () => {
-      updateIdPreview();
-      updatePaymentSummary();
-    });
+    document.getElementById(id).addEventListener('input', updatePreviews);
   });
   document.getElementById('stepBtnDetails').addEventListener('click', () => showRegisterStep('details'));
   document.getElementById('stepBtnPayment').addEventListener('click', goToPaymentStep);
@@ -2564,11 +2498,9 @@
   document.getElementById('registerAnotherBtn').addEventListener('click', () => {
     setRegisterView(false);
     document.getElementById('regForm').reset();
-    updateIdPreview();
-    updatePaymentSummary();
+    updatePreviews();
   });
-  updateIdPreview();
-  updatePaymentSummary();
+  updatePreviews();
   setRegisterView(false);
   if (window.location.hash) {
     const initialPage = window.location.hash.slice(1);
@@ -2614,8 +2546,7 @@
     setRegisterView(true);
     renderRegList();
     document.getElementById('regForm').reset();
-    updateIdPreview();
-    updatePaymentSummary();
+    updatePreviews();
     showRegisterStep('details');
   });
 </script>
