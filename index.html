@@ -357,7 +357,7 @@
     padding: 60px var(--page-gutter);
   }
   .hero-inner {
-    width: min(var(--hero-max), 100%);
+    width: min(var(--nav-max), 100%);
     padding: clamp(2rem, 5vw, 4rem);
     animation: fadeUp 0.9s ease both;
     box-shadow:
@@ -523,8 +523,8 @@
 
   /* SECTIONS */
   section {
-    width: min(var(--content-max), calc(100% - (var(--page-gutter) * 2)));
-    padding: 80px 0;
+    width: min(var(--nav-max), calc(100% - (var(--page-gutter) * 2)));
+    padding: 40px 0;
     margin: 0 auto;
   }
   .section-pt-60 { padding-top: 60px; }
@@ -1090,7 +1090,7 @@
 
   /* REGISTER PAGE */
   .register-page { min-height: calc(100vh - var(--top-offset)); padding: 60px var(--page-gutter); display: flex; align-items: flex-start; justify-content: center; }
-  .register-container { width: min(var(--hero-max), 100%); }
+  .register-container { width: min(var(--nav-max), 100%); }
   .register-header { text-align: center; margin-bottom: 40px; }
   .register-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 10px; }
   .register-header p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
@@ -1243,7 +1243,7 @@
 
   /* CONTACT PAGE */
   .contact-page { min-height: calc(100vh - var(--top-offset)); padding: 60px var(--page-gutter); display: flex; align-items: flex-start; justify-content: center; }
-  .contact-container { width: min(var(--hero-max), 100%); }
+  .contact-container { width: min(var(--nav-max), 100%); }
   .contact-header { text-align: center; margin-bottom: 40px; }
   .contact-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; margin-bottom: 10px; }
   .contact-header p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; max-width: 700px; margin: 0 auto; }
@@ -1631,8 +1631,6 @@
             Therapy Symposium 2026
           </span>
         </h1>
-        <p class="hero-sub">Advancing the frontiers of curative medicine - where pioneering science seamlessly translates into clinical impact.
-Join a distinguished global community of researchers, clinicians, and industry leaders as we explore breakthrough innovations, transformative therapies, and the future of translational medicine.</p>
         <div class="hero-meta">
           <div class="hero-meta-group">
             <div class="meta-pill">
@@ -1655,8 +1653,40 @@ Join a distinguished global community of researchers, clinicians, and industry l
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- HIGHLIGHTS -->
+<!-- ABOUT PAGE -->
+<div class="page" id="page-about">
+  <div class="page-content">
+    <section class="section-pt-60">
+      <div class="about-grid">
+        <div class="about-text">
+          <div class="section-label">About the Symposium</div>
+          <h2 class="section-title">A Decade of Progress.<br>A Future of Cures.</h2>
+          <p class="section-desc mb-20">Now in its 11<sup>th</sup> year, the Cell and Gene Therapy Symposium has become a leading forum for CGT professionals across India and internationally. Since its launch in 2015 with just 80 participants, the symposium has evolved into a flagship event that attracts global leaders and innovators in viral vectors, CAR-T therapies, gene editing, and advanced manufacturing.</p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card glass">
+            <div class="stat-num">11<sup>th</sup></div>
+            <div class="stat-label">Annual Edition</div>
+          </div>
+          <div class="stat-card glass">
+            <div class="stat-num">200+</div>
+            <div class="stat-label">Expected Delegates</div>
+          </div>
+          <div class="stat-card glass">
+            <div class="stat-num">30+</div>
+            <div class="stat-label">Invited Speakers</div>
+          </div>
+          <div class="stat-card glass">
+            <div class="stat-num">10+</div>
+            <div class="stat-label">Countries Represented</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section>
       <div class="section-label">Why Attend</div>
       <h2 class="section-title">Two Days of Transformative Science</h2>
@@ -1681,40 +1711,6 @@ Join a distinguished global community of researchers, clinicians, and industry l
           <div class="theme-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
           <h3>Industry Showcase</h3>
           <p>Explore innovative platforms, tools, and technologies from leading biotech and pharma companies in the exhibition hall.</p>
-        </div>
-      </div>
-    </section>
-  </div>
-</div>
-
-<!-- ABOUT PAGE -->
-<div class="page" id="page-about">
-  <div class="page-content">
-    <section class="section-pt-60">
-      <div class="about-grid">
-        <div class="about-text">
-          <div class="section-label">About the Symposium</div>
-          <h2 class="section-title">A Decade of Progress.<br>A Future of Cures.</h2>
-          <p class="section-desc mb-20">Now in its 11<sup>th</sup> year, the Cell and Gene Therapy Symposium has become a leading forum for CGT professionals across India and internationally. Since its launch in 2015 with just 80 participants, the symposium has evolved into a flagship event that attracts global leaders and innovators in viral vectors, CAR-T therapies, gene editing, and advanced manufacturing.</p>
-          <p class="section-desc">Our mission is to fast-track the journey from groundbreaking scientific discovery to transformative therapies for patients with rare and complex diseases. Through high-impact scientific sessions, interactive workshops, and purposeful networking opportunities, CGTS 2026 will further advance the frontiers of curative medicine.</p>
-        </div>
-        <div class="about-stats">
-          <div class="stat-card glass">
-            <div class="stat-num">11<sup>th</sup></div>
-            <div class="stat-label">Annual Edition</div>
-          </div>
-          <div class="stat-card glass">
-            <div class="stat-num">200+</div>
-            <div class="stat-label">Expected Delegates</div>
-          </div>
-          <div class="stat-card glass">
-            <div class="stat-num">30+</div>
-            <div class="stat-label">Invited Speakers</div>
-          </div>
-          <div class="stat-card glass">
-            <div class="stat-num">10+</div>
-            <div class="stat-label">Countries Represented</div>
-          </div>
         </div>
       </div>
     </section>
@@ -2310,7 +2306,7 @@ Join a distinguished global community of researchers, clinicians, and industry l
               <a class="contact-social-link" href="https://www.facebook.com/cmcvelloreindia" target="_blank" rel="noopener noreferrer" aria-label="CMC Vellore on Facebook">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8.4V6.7c0-.82.2-1.23 1.33-1.23h1.77V2.14C16.24 2.05 15.5 2 14.54 2c-3 0-5.05 1.83-5.05 5.2v1.2H6.1v3.73h3.39V22h4.05v-9.87h3.36l.52-3.73H14Z"/></svg>
               </a>
-              <a class="contact-social-link" href="https://www.linkedin.com/company/cscr-cmc-instem-570755126/" target="_blank" rel="noopener noreferrer" aria-label="CSCR CMC inStem on LinkedIn">
+              <a class="contact-social-link" href="https://www.linkedin.com/in/cscr-cmc-instem-570755126/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BcNYCIqyaTWWNbn9WDkAMEQ%3D%3D" target="_blank" rel="noopener noreferrer" aria-label="CSCR CMC inStem on LinkedIn">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.37 7.93H1.88V22h3.49V7.93ZM3.62 2C2.5 2 1.6 2.9 1.6 4s.9 2 2.02 2c1.11 0 2.01-.9 2.01-2S4.73 2 3.62 2Zm18.77 12.12c0-3.78-2.02-5.54-4.72-5.54-2.17 0-3.15 1.2-3.69 2.04h-.05V7.93h-3.35V22h3.49v-6.96c0-1.84.35-3.62 2.63-3.62 2.24 0 2.27 2.1 2.27 3.74V22h3.49l-.07-7.88Z"/></svg>
               </a>
             </div>
