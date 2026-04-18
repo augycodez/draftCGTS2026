@@ -270,6 +270,13 @@
   .page { display: none; min-height: 100vh; padding-top: var(--top-offset); }
   .page.active { display: block; }
   .page-content { position: relative; z-index: 1; }
+  .route-anchor {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
 
   /* GLASS CARD */
   .glass {
@@ -284,7 +291,7 @@
       0 22px 48px rgba(76, 106, 151, 0.2),
       0 8px 24px rgba(117, 187, 255, 0.14),
       inset 0 1px 0 rgba(255,255,255,0.82),
-      inset 0 -14px 22px rgba(61, 124, 214, 0.08);
+      inset 0 -14px 22px rgba(61, 124, 214, 0.08),
       inset 0 -14px 22px rgba(0, 102, 255, 0.08);
     isolation: isolate;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -354,72 +361,6 @@
     width: min(var(--nav-max), 100%);
     padding: clamp(2rem, 5vw, 4rem);
     animation: fadeUp 0.9s ease both;
-    box-shadow:
-      0 24px 60px rgba(76, 109, 156, 0.18),
-      inset 0 1px 0 rgba(255,255,255,0.72);
-  }
-  .hero-glass {
-    position: relative;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.8);
-    -webkit-backdrop-filter: blur(30px) saturate(225%);
-    backdrop-filter: blur(30px) saturate(225%);
-    border: 1px solid rgba(255,255,255,0.48);
-    border-radius: 34px;
-    box-shadow:
-      0 30px 80px rgba(49, 84, 134, 0.22),
-      0 12px 36px rgba(95, 166, 255, 0.18),
-      inset 0 1px 0 rgba(255,255,255,0.86),
-      inset 0 -16px 28px rgba(49, 111, 204, 0.12);
-      inset 0 -16px 28px rgba(0, 102, 255, 0.12);
-    isolation: isolate;
-  }
-  .hero-glass::before,
-  .hero-glass::after {
-    content: "";
-    position: absolute;
-    pointer-events: none;
-  }
-  .hero-glass::before {
-    inset: 1px;
-    border-radius: inherit;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.18) 26%, rgba(255,255,255,0) 56%),
-      linear-gradient(120deg, rgba(255,255,255,0.18), rgba(255,255,255,0) 36%);
-    opacity: 1;
-  }
-  .hero-glass::after {
-    width: 420px;
-    height: 420px;
-    top: -300px;
-    left: -80px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.2) 34%, rgba(255,255,255,0) 72%);
-    filter: blur(10px);
-    opacity: 0.9;
-  }
-  .hero-glass > * {
-    position: relative;
-    z-index: 1;
-  }
-  .hero-glass .hero-sub {
-    color: rgba(53, 72, 107, 0.92);
-  }
-  .hero-glass .meta-pill {
-    background:
-      linear-gradient(145deg, rgba(255,255,255,0.42), rgba(255,255,255,0.14)),
-      rgba(131, 194, 255, 0.1);
-    border: 1px solid rgba(255,255,255,0.46);
-    box-shadow:
-      0 12px 24px rgba(93, 123, 166, 0.14),
-      inset 0 1px 0 rgba(255,255,255,0.78),
-      inset 0 -10px 16px rgba(72, 134, 219, 0.08);
-  }
-  .hero-glass .btn-primary {
-    box-shadow:
-      0 16px 30px rgba(42, 109, 217, 0.22),
-      0 16px 30px rgba(0, 102, 255, 0.22),
-      inset 0 1px 0 rgba(255,255,255,0.28);
   }
   .event-title {
   display: block;
@@ -611,7 +552,7 @@
       0 20px 42px rgba(67, 98, 145, 0.18),
       0 8px 22px rgba(111, 180, 255, 0.14),
       inset 0 1px 0 rgba(255,255,255,0.8),
-      inset 0 -12px 20px rgba(61, 124, 214, 0.08);
+      inset 0 -12px 20px rgba(61, 124, 214, 0.08),
       inset 0 -12px 20px rgba(0, 102, 255, 0.08);
     isolation: isolate;
   }
@@ -657,7 +598,7 @@
       0 22px 46px rgba(67, 98, 145, 0.2),
       0 8px 24px rgba(111, 180, 255, 0.16),
       inset 0 1px 0 rgba(255,255,255,0.82),
-      inset 0 -14px 22px rgba(61, 124, 214, 0.1);
+      inset 0 -14px 22px rgba(61, 124, 214, 0.1),
       inset 0 -14px 22px rgba(0, 102, 255, 0.1);
     isolation: isolate;
   }
@@ -759,7 +700,7 @@
       0 22px 44px rgba(69, 100, 146, 0.18),
       0 8px 24px rgba(110, 181, 255, 0.14),
       inset 0 1px 0 rgba(255,255,255,0.82),
-      inset 0 -14px 22px rgba(61, 124, 214, 0.1);
+      inset 0 -14px 22px rgba(61, 124, 214, 0.1),
       inset 0 -14px 22px rgba(0, 102, 255, 0.1);
     isolation: isolate;
   }
@@ -831,6 +772,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
   }
+  .schedule-agenda {
+    display: grid;
+    gap: 20px;
+  }
   .schedule-track {
     padding: 24px;
     border-radius: 24px;
@@ -853,6 +798,13 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--accent);
+  }
+  .schedule-track-note {
+    margin-top: -8px;
+    margin-bottom: 18px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--muted);
   }
   .schedule-item {
     display: flex; gap: 20px; padding: 20px 24px; border-radius: 14px; margin-bottom: 12px;
@@ -1295,6 +1247,25 @@
   }
   .contact-map-link:hover { text-decoration: underline; }
 
+  .workshop-card-title { font-size: 1.1rem; margin-bottom: 10px; }
+  .workshop-list { list-style: disc; padding-left: 20px; font-size: 0.9rem; }
+  .workshop-list-circle { list-style: circle; padding-left: 20px; }
+  .workshop-module-label { font-size: 0.7rem; }
+  .workshop-module-desc { font-size: 0.85rem; }
+  .workshop-registration-card { border: 1px solid var(--accent); }
+  .workshop-registration-title { font-size: 1.8rem; }
+  .workshop-application-box {
+    background: rgba(42,109,217,0.05);
+    border: 1px dashed var(--accent);
+    margin-bottom: 20px;
+  }
+  .btn-row-start { justify-content: flex-start; }
+  .venue-card-heading {
+    font-size: 1.8rem;
+    color: #000000;
+    margin-bottom: 16px;
+  }
+
   /* FOOTER */
   footer {
     position: relative; z-index: 1;
@@ -1562,8 +1533,9 @@
 <!-- HOME PAGE -->
 <div class="page active" id="page-home">
   <div class="page-content">
+    <span id="home" class="route-anchor" aria-hidden="true"></span>
     <div class="hero">
-      <div class="hero-inner hero-glass">
+      <div class="hero-inner">
                 <h1>
           <span class="event-kicker">
             11<sup>th</sup> Annual
@@ -1603,6 +1575,7 @@
 <!-- ABOUT PAGE -->
 <div class="page" id="page-about">
   <div class="page-content">
+    <span id="about" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <div class="about-grid">
         <div class="about-text">
@@ -1626,29 +1599,6 @@
             <div class="stat-num">10+</div>
             <div class="stat-label">Countries Represented</div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="about-grid">
-        <div class="about-stats">
-          <div class="stat-card glass fade-in">
-            <div class="stat-num" style="font-size: 1.8rem; color: #000000;">Cutting Edge Research</div>
-          </div>
-          <div class="stat-card glass fade-in">
-            <div class="stat-num" style="font-size: 1.8rem; color: #000000;">Clinical Translation</div>
-          </div>
-          <div class="stat-card glass fade-in">
-            <div class="stat-num" style="font-size: 1.6rem; color: #000000;">Professional Networking</div>
-          </div>
-          <div class="stat-card glass fade-in">
-            <div class="stat-num" style="font-size: 1.8rem; color: #000000;">Industry Showcase</div>
-          </div>
-        </div>
-        <div class="about-text">
-          <h2 class="section-title">Why Attend</h2>
-          <p class="section-desc">The 11<sup>th</sup> Annual Cell and Gene Therapy Symposium brings together over 100 experts from academia, clinical practice, and biotech to explore the latest breakthroughs in curative therapies.</p>
         </div>
       </div>
     </section>
@@ -1690,6 +1640,7 @@
 <!-- THEMES PAGE -->
 <div class="page" id="page-themes">
   <div class="page-content">
+    <span id="themes" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <h2 class="section-title">Scientific Programme</h2>
       <p class="section-desc">This year's symposium brings together fourteen focus areas spanning clinical translation, disease biology, platform innovation, and real-world manufacturing insights in cell and gene therapy.</p>
@@ -1716,6 +1667,7 @@
 <!-- SPEAKERS PAGE -->
 <div class="page" id="page-speakers">
   <div class="page-content">
+    <span id="speakers" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <h2 class="section-title">Speakers</h2>
       <p class="section-desc">CGTS 2026 brings together 50+ world-class speakers from leading academic medical centers, biotech companies, and regulatory bodies.</p>
@@ -1788,78 +1740,266 @@
 <!-- SCHEDULE PAGE -->
 <div class="page" id="page-schedule">
   <div class="page-content">
+    <span id="schedule" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <h2 class="section-title">Scientific Schedule</h2>
-      <p class="section-desc">Two full days of plenary sessions, panel discussions, and networking events. Will be updated soon.</p>
+      <p class="section-desc">Two full days of plenary sessions, panel discussions, and networking events.</p>
       <div class="schedule-tabs schedule-tabs-tight">
         <button type="button" class="tab-btn active" data-day-index="0">Day 1 · Oct 09</button>
         <button type="button" class="tab-btn" data-day-index="1">Day 2 · Oct 10</button>
       </div>
       <div class="schedule-day active" id="day-0">
-        <div class="schedule-day-grid">
+        <div class="schedule-agenda">
           <div class="schedule-track glass">
             <div class="schedule-track-head">
-              <h3>Hall A</h3>
-              <span class="schedule-track-label">Parallel Track</span>
+              <h3>Opening Schedule</h3>
+              <span class="schedule-track-label">Day 1</span>
             </div>
-            <div class="schedule-item glass"><div class="schedule-time">08:00 - 09:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Arrival</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">09:00 - 09:45</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Plenary</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">09:45 - 10:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">10:30 - 11:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Break</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">11:00 - 12:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">12:30 - 13:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Lunch</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">13:30 - 15:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">15:00 - 15:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Break</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">15:30 - 17:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-panel">Panel</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">18:30 - 21:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Social</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">6:30 AM onwards</div><div class="schedule-content"><h3>Registration</h3><span class="schedule-tag tag-break">Registration</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">7:15 - 8:00 AM</div><div class="schedule-content"><h3>Breakfast &amp; Tea</h3><span class="schedule-tag tag-break">Breakfast</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">8:00 - 8:25 AM</div><div class="schedule-content"><h3>Hall A - Welcome Address &amp; Inauguration</h3><span class="schedule-tag tag-keynote">Inauguration</span></div></div>
           </div>
-          <div class="schedule-track glass">
-            <div class="schedule-track-head">
-              <h3>Hall B</h3>
-              <span class="schedule-track-label">Parallel Track</span>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 1</span>
+              </div>
+              <p class="schedule-track-note"><strong>Manufacturing and Regulatory Aspects in Cell &amp; Gene Therapy</strong><br>Session coordinators: Gurbind Singh &amp; Augustine Thambaiah</p>
+              <div class="schedule-item glass"><div class="schedule-time">8:30 - 8:55 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">8:55 - 9:20 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:20 - 9:45 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:45 - 10:10 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
             </div>
-            <div class="schedule-item glass"><div class="schedule-time">08:00 - 09:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Arrival</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">09:00 - 09:45</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Plenary</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">09:45 - 10:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">10:30 - 11:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Break</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">11:00 - 12:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-workshop">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">12:30 - 13:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Lunch</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">13:30 - 15:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">15:00 - 15:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Break</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">15:30 - 17:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-workshop">Workshop</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">18:30 - 21:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Social</span></div></div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 1</span>
+              </div>
+              <p class="schedule-track-note"><strong>Organoids &amp; Disease Modelling</strong><br>Session coordinators: Vijayalakshmi &amp; Shaji RV</p>
+              <div class="schedule-item glass"><div class="schedule-time">8:30 - 8:55 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">8:55 - 9:20 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:20 - 9:45 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:45 - 10:10 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-track glass">
+            <div class="schedule-item glass"><div class="schedule-time">10:10 - 10:30 AM</div><div class="schedule-content"><h3>Tea Break</h3><span class="schedule-tag tag-break">Break</span></div></div>
+          </div>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 2</span>
+              </div>
+              <p class="schedule-track-note"><strong>Ophthalmological Disorders</strong><br>Session coordinators: Sanita Mary Korah, Jeyanth Rose, Anupriya Arthur &amp; Nihal Thomas</p>
+              <div class="schedule-item glass"><div class="schedule-time">10:30 - 10:55 AM</div><div class="schedule-content"><h3>Leber hereditary optic neuropathy</h3><p>Mohankumar Murugesan</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">10:55 - 11:20 AM</div><div class="schedule-content"><h3>Stargardt Disease</h3><p>Arkasubhra Ghosh</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:20 - 11:45 AM</div><div class="schedule-content"><h3>Retinitis Pigmentosa</h3><p>Indumathi Mariappan</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:45 AM - 12:10 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+            </div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 2</span>
+              </div>
+              <p class="schedule-track-note"><strong>Cell Therapy for Diabetes</strong><br>Session coordinator: Felix Jebaraj</p>
+              <div class="schedule-item glass"><div class="schedule-time">10:30 - 10:55 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">10:55 - 11:20 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:20 - 11:45 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:45 AM - 12:10 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-track glass">
+            <div class="schedule-item glass"><div class="schedule-time">12:10 - 1:00 PM</div><div class="schedule-content"><h3>Lunch</h3><span class="schedule-tag tag-break">Lunch</span></div></div>
+          </div>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 3</span>
+              </div>
+              <p class="schedule-track-note"><strong>Neurological Disorders</strong><br>Session coordinators: Sangeetha Y, Maya Mary Mathew &amp; Marepally Srujan</p>
+              <div class="schedule-item glass"><div class="schedule-time">1:00 - 1:25 PM</div><div class="schedule-content"><h3>Duchene Muscular Dystrophy</h3><p>Jayandharan G. Rao</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:25 - 1:50 PM</div><div class="schedule-content"><h3>Adrenoleukodystrophy</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:50 - 2:15 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">2:15 - 2:40 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+            </div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 3</span>
+              </div>
+              <p class="schedule-track-note"><strong>Immune Cell Therapy</strong><br>Session coordinator: Thyagaraj Mayurnathan</p>
+              <div class="schedule-item glass"><div class="schedule-time">1:00 - 1:25 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:25 - 1:50 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:50 - 2:15 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">2:15 - 2:40 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 4</span>
+              </div>
+              <p class="schedule-track-note"><strong>Hematological disorders 2 - Bleeding disorders, primary immunodeficiency disorders</strong></p>
+              <div class="schedule-item glass"><div class="schedule-time">2:40 - 3:05 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:05 - 3:30 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:30 - 3:55 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:55 - 4:20 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+            </div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 4</span>
+              </div>
+              <p class="schedule-track-note"><strong>Industry talks</strong></p>
+              <div class="schedule-item glass"><div class="schedule-time">2:40 - 3:05 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:05 - 3:30 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:30 - 3:55 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:55 - 4:20 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-track glass">
+            <div class="schedule-item glass"><div class="schedule-time">4:20 - 4:40 PM</div><div class="schedule-content"><h3>Tea &amp; Industry Exhibitions</h3><span class="schedule-tag tag-break">Break</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">4:40 - 6:00 PM</div><div class="schedule-content"><h3>Quiz &amp; Poster Presentations</h3><span class="schedule-tag tag-panel">Presentations</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">6:00 - 6:45 PM</div><div class="schedule-content"><h3>Keynote Address</h3><span class="schedule-tag tag-keynote">Keynote</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">7:00 PM onwards</div><div class="schedule-content"><h3>Dinner at Eden Gardens</h3><span class="schedule-tag tag-break">Dinner</span></div></div>
           </div>
         </div>
       </div>
       <div class="schedule-day" id="day-1">
-        <div class="schedule-day-grid">
+        <div class="schedule-agenda">
           <div class="schedule-track glass">
             <div class="schedule-track-head">
-              <h3>Hall A</h3>
-              <span class="schedule-track-label">Parallel Track</span>
+              <h3>Opening Schedule</h3>
+              <span class="schedule-track-label">Day 2</span>
             </div>
-            <div class="schedule-item glass"><div class="schedule-time">08:30 - 09:15</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">09:15 - 10:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">10:00 - 10:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Break</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">10:30 - 12:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">12:00 - 13:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-panel">Roundtable</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">13:00 - 14:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-workshop">Workshop</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">14:30 - 16:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-panel">Panel</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">16:00 - 17:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Closing</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">7:00 AM onwards</div><div class="schedule-content"><h3>Registration</h3><span class="schedule-tag tag-break">Registration</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">7:15 - 8:25 AM</div><div class="schedule-content"><h3>Breakfast &amp; Tea</h3><span class="schedule-tag tag-break">Breakfast</span></div></div>
           </div>
-          <div class="schedule-track glass">
-            <div class="schedule-track-head">
-              <h3>Hall B</h3>
-              <span class="schedule-track-label">Parallel Track</span>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 1</span>
+              </div>
+              <p class="schedule-track-note"><strong>Stem Cell &amp; Gene Therapy - Industry Updates</strong><br>Session coordinators: Gurbind Singh &amp; Augustine Thambaiah</p>
+              <div class="schedule-item glass"><div class="schedule-time">8:30 - 8:55 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">8:55 - 9:20 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:20 - 9:45 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:45 - 10:10 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
             </div>
-            <div class="schedule-item glass"><div class="schedule-time">08:30 - 09:15</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Keynote</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">09:15 - 10:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-workshop">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">10:00 - 10:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-break">Break</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">10:30 - 12:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Session</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">12:00 - 13:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-panel">Spotlight</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">13:00 - 14:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-workshop">Workshop</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">14:30 - 16:00</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-panel">Panel</span></div></div>
-            <div class="schedule-item glass"><div class="schedule-time">16:00 - 17:30</div><div class="schedule-content"><h3>TBC</h3><p>TBC</p><span class="schedule-tag tag-keynote">Closing</span></div></div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 1</span>
+              </div>
+              <p class="schedule-track-note"><strong>Musculoskeletal Disorders</strong><br>Session coordinators: Elizabeth Vinod &amp; Saravanabhavan Thangavel</p>
+              <div class="schedule-item glass"><div class="schedule-time">8:30 - 8:55 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">8:55 - 9:20 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:20 - 9:45 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">9:45 - 10:10 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-track glass">
+            <div class="schedule-item glass"><div class="schedule-time">10:10 - 10:30 AM</div><div class="schedule-content"><h3>Tea Break</h3><span class="schedule-tag tag-break">Break</span></div></div>
+          </div>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 2</span>
+              </div>
+              <p class="schedule-track-note"><strong>Hematological disorders 1 - Hemoglobinopathies</strong><br>Session coordinators: Mohankumar Murugesan &amp; Saravanabhavan Thangavel</p>
+              <div class="schedule-item glass"><div class="schedule-time">10:30 - 10:55 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">10:55 - 11:20 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:20 - 11:45 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:45 AM - 12:10 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+            </div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 2</span>
+              </div>
+              <p class="schedule-track-note"><strong>Viral &amp; Non-Viral Nucleic Acid Delivery Technologies</strong><br>Session coordinator: Marepally Srujan</p>
+              <div class="schedule-item glass"><div class="schedule-time">10:30 - 10:55 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">10:55 - 11:20 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:20 - 11:45 AM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">11:45 AM - 12:10 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-track glass">
+            <div class="schedule-item glass"><div class="schedule-time">12:10 - 1:00 PM</div><div class="schedule-content"><h3>Lunch</h3><span class="schedule-tag tag-break">Lunch</span></div></div>
+          </div>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 3</span>
+              </div>
+              <p class="schedule-track-note"><strong>Inherited Metabolic Disorders</strong><br>Session coordinator: Nihal Thomas</p>
+              <div class="schedule-item glass"><div class="schedule-time">1:00 - 1:25 PM</div><div class="schedule-content"><h3>Pompe Disease</h3><p>Neerja Gupta</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:25 - 1:50 PM</div><div class="schedule-content"><h3>Mucopolysaccharidosis</h3><p>Ashwin Dalal</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:50 - 2:15 PM</div><div class="schedule-content"><h3>Gaucher Disease</h3><p>Sumita Danda</p><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">2:15 - 2:40 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+            </div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 3</span>
+              </div>
+              <p class="schedule-track-note"><strong>Dermatological Disorders</strong></p>
+              <div class="schedule-item glass"><div class="schedule-time">1:00 - 1:25 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:25 - 1:50 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">1:50 - 2:15 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">2:15 - 2:40 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-day-grid">
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall A</h3>
+                <span class="schedule-track-label">Session 4</span>
+              </div>
+              <p class="schedule-track-note"><strong>Details to be announced</strong></p>
+              <div class="schedule-item glass"><div class="schedule-time">2:40 - 3:05 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:05 - 3:30 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:30 - 3:55 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:55 - 4:20 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-keynote">Session</span></div></div>
+            </div>
+            <div class="schedule-track glass">
+              <div class="schedule-track-head">
+                <h3>Hall B</h3>
+                <span class="schedule-track-label">Session 4</span>
+              </div>
+              <p class="schedule-track-note"><strong>Details to be announced</strong></p>
+              <div class="schedule-item glass"><div class="schedule-time">2:40 - 3:05 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:05 - 3:30 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:30 - 3:55 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+              <div class="schedule-item glass"><div class="schedule-time">3:55 - 4:20 PM</div><div class="schedule-content"><h3>Details to be announced</h3><span class="schedule-tag tag-workshop">Session</span></div></div>
+            </div>
+          </div>
+
+          <div class="schedule-track glass">
+            <div class="schedule-item glass"><div class="schedule-time">4:20 - 5:00 PM</div><div class="schedule-content"><h3>Poster &amp; Quiz - Prize Distribution</h3><span class="schedule-tag tag-panel">Prize Distribution</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">5:00 - 5:45 PM</div><div class="schedule-content"><h3>Keynote Address</h3><span class="schedule-tag tag-keynote">Keynote</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">5:45 - 6:15 PM</div><div class="schedule-content"><h3>Concluding Remarks</h3><span class="schedule-tag tag-keynote">Closing</span></div></div>
+            <div class="schedule-item glass"><div class="schedule-time">7:00 PM onwards</div><div class="schedule-content"><h3>Dinner at CSCR Rooftop</h3><span class="schedule-tag tag-break">Dinner</span></div></div>
           </div>
         </div>
       </div>
@@ -1870,6 +2010,7 @@
 <!-- WORKSHOP PAGE -->
 <div class="page" id="page-workshop">
   <div class="page-content">
+    <span id="workshop" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <div class="about-text">
         <p class="section-label">An Advanced Hands-on Workshop for Translational Research</p>
@@ -1885,16 +2026,16 @@
         </div>
         <div class="about-stats">
           <div class="glass theme-card fade-in">
-            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Who Should Attend</h3>
-            <ul class="section-desc" style="list-style: disc; padding-left: 20px; font-size: 0.9rem;">
+            <h3 class="workshop-card-title">Who Should Attend</h3>
+            <ul class="section-desc workshop-list">
               <li>Postgraduate students and PhD scholars</li>
               <li>Academic researchers in life sciences</li>
               <li>Industry professionals in CGT & Biotech</li>
             </ul>
           </div>
           <div class="glass theme-card fade-in">
-            <h3 style="font-size: 1.1rem; margin-bottom: 10px;">Unique Features</h3>
-            <ul class="section-desc" style="list-style: disc; padding-left: 20px; font-size: 0.9rem;">
+            <h3 class="workshop-card-title">Unique Features</h3>
+            <ul class="section-desc workshop-list">
               <li>Extensive hands-on training</li>
               <li>Small-group guided sessions</li>
               <li>Industry-standard data pipelines</li>
@@ -1909,23 +2050,23 @@
       <div class="themes-grid">
         <!-- Module 1 -->
         <div class="theme-card glass">
-          <p class="section-label" style="font-size: 0.7rem;">Module 1</p>
+          <p class="section-label workshop-module-label">Module 1</p>
           <h3>Digital Droplet PCR (ddPCR)</h3>
-          <p class="section-desc" style="font-size: 0.85rem;">Focus: Absolute nucleic acid quantification and viral vector analysis. Setup and execution of ddPCR reactions for lentiviral vector copy number quantification.</p>
+          <p class="section-desc workshop-module-desc">Focus: Absolute nucleic acid quantification and viral vector analysis. Setup and execution of ddPCR reactions for lentiviral vector copy number quantification.</p>
         </div>
 
         <!-- Module 2 -->
         <div class="theme-card glass">
-          <p class="section-label" style="font-size: 0.7rem;">Module 2</p>
+          <p class="section-label workshop-module-label">Module 2</p>
           <h3>HSPC Isolation & Phenotyping</h3>
-          <p class="section-desc" style="font-size: 0.85rem;">Focus: Stem cell processing. Isolation of CD34⁺ HSPCs from PBMNCs using magnetic bead-based separation and immunophenotyping via flow cytometry.</p>
+          <p class="section-desc workshop-module-desc">Focus: Stem cell processing. Isolation of CD34⁺ HSPCs from PBMNCs using magnetic bead-based separation and immunophenotyping via flow cytometry.</p>
         </div>
 
         <!-- Module 3 -->
         <div class="theme-card glass">
-          <p class="section-label" style="font-size: 0.7rem;">Module 3</p>
+          <p class="section-label workshop-module-label">Module 3</p>
           <h3>T-cell Isolation & Phenotyping</h3>
-          <p class="section-desc" style="font-size: 0.85rem;">Focus: Immune cell engineering. Isolation of CD3⁺, CD4⁺, and CD8⁺ subsets and characterization of activation, memory, and exhaustion markers.</p>
+          <p class="section-desc workshop-module-desc">Focus: Immune cell engineering. Isolation of CD3⁺, CD4⁺, and CD8⁺ subsets and characterization of activation, memory, and exhaustion markers.</p>
         </div>
       </div>
     </section>
@@ -1934,7 +2075,7 @@
       <div class="about-grid">
         <div class="glass theme-card">
           <h3 class="venue-subheading">Learning Outcomes</h3>
-          <ul class="section-desc" style="list-style: circle; padding-left: 20px;">
+          <ul class="section-desc workshop-list-circle">
             <li>Gain hands-on expertise in ddPCR workflows</li>
             <li>Perform cell isolation using industry-standard methods</li>
             <li>Master flow cytometry data acquisition and gating</li>
@@ -1949,11 +2090,11 @@
     </section>
 
     <section>
-      <div class="glass venue-card" style="border: 1px solid var(--accent);">
-        <h2 class="section-title" style="font-size: 1.8rem;">Workshop Registration</h2>
+      <div class="glass venue-card workshop-registration-card">
+        <h2 class="section-title workshop-registration-title">Workshop Registration</h2>
         <p class="section-desc mb-20"><strong>Note: </strong>Seats are limited to <strong>30 participants</strong> to ensure a high-quality, hands-on experience. Standalone registration for the workshop is not permitted; participants must register for both the workshop and the symposium. Participation is competitive, and priority will be given to applicants closely working in areas aligned with the workshop themes. Late or spot registration is not available.</p>
-        
-        <div class="contact-item" style="background: rgba(42,109,217,0.05); border: 1px dashed var(--accent); margin-bottom: 20px;">
+
+        <div class="contact-item workshop-application-box">
           <p class="section-desc"><strong>How to apply:</strong><br>
           1. Download the application document.<br>
           2. Complete and submit to <a href="mailto:cscrmeet@cmcvellore.ac.in">cscrmeet@cmcvellore.ac.in</a>, on or before 31 July 2026.<br>
@@ -1961,8 +2102,8 @@
           4. Notification of selection: <strong>15 August 2026</strong></p>
         </div>
 
-        <div class="btn-row" style="justify-content: flex-start;">
-          <a href="#" class="btn btn-primary">Download Application Form</a>
+        <div class="btn-row btn-row-start">
+          <a href="mailto:cscrmeet@cmcvellore.ac.in?subject=Workshop%20Application%20Form%20Request" class="btn btn-primary">Request Application Form</a>
           <a href="#contact" class="btn btn-ghost" data-page-link="contact">Inquire Details</a>
         </div>
       </div>
@@ -1973,17 +2114,18 @@
 <!-- VENUE PAGE -->
 <div class="page" id="page-venue">
   <div class="page-content">
+    <span id="venue" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <h2 class="section-title">New Exam Building</h2>
       <div class="venue-grid">
         <div class="venue-info">
           <div class="glass venue-card fade-in">
-            <div class="stat-num" style="font-size: 1.8rem; color: #000000; margin-bottom: 16px;">Venue Details</div>
+            <div class="stat-num venue-card-heading">Venue Details</div>
             <p><strong>New Exam Building</strong><br>Christian Medical College, Bagayam, Vellore 632002</p>
             <p>Located in the heart of Christian Medical College campus in Bagayam, Vellore, offers world-class facilities for our two-day symposium. The sessions will be conducted concurrently in Hall A and Hall B, with each hall accommodating up to 200 attendees.</p>
           </div>
           <div class="glass venue-card fade-in">
-            <div class="stat-num" style="font-size: 1.8rem; color: #000000; margin-bottom: 16px;">Getting There</div>
+            <div class="stat-num venue-card-heading">Getting There</div>
             <p class="airport-line"><strong>By Air:</strong> Chennai International Airport (MAA) - 3 Hours by taxi.</p>
                               <p class="airport-line">Bengaluru International Airport (BLR) - 4 Hours by taxi.</p>
                               <p class="airport-line">Tirupathi International Airport (TIR) - 2.5 Hours by taxi.</p>
@@ -2054,6 +2196,7 @@
 <!-- SPONSORS PAGE -->
 <div class="page" id="page-sponsors">
   <div class="page-content">
+    <span id="sponsors" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <h2 class="section-title">Sponsors & Partners</h2>
       <p class="section-desc">CGTS 2026 is made possible through the generous support of leading organizations in the cell and gene therapy ecosystem.</p>
@@ -2091,6 +2234,7 @@
 <!-- REGISTER PAGE -->
 <div class="page" id="page-register">
   <div class="page-content">
+    <span id="register" class="route-anchor" aria-hidden="true"></span>
     <div class="register-page">
       <div class="register-container">
         <div class="register-header">
@@ -2288,6 +2432,7 @@
 <!-- CONTACT PAGE -->
 <div class="page" id="page-contact">
   <div class="page-content">
+    <span id="contact" class="route-anchor" aria-hidden="true"></span>
     <div class="contact-page">
       <div class="contact-container">
         <div class="contact-header">
@@ -2301,7 +2446,7 @@
             <div class="contact-list">
               <div class="contact-item">
                 <span class="contact-item-label">Phone</span>
-                <a href="tel:+914162285168">+91-416-228-5168/5101</a>
+                <a href="tel:+914162285168">+91-416-228-5109</a>
               </div>
               <div class="contact-item">
                 <span class="contact-item-label">Mobile</span>
