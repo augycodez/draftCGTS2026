@@ -8,8 +8,7 @@ This workspace is configured to run Codex through WSL on Windows, which is the s
 If Codex still fails to start, check that WSL is installed, accessible from your Windows account, and that VS Code can open the folder with the Remote WSL extension enabled.
 
 ### Troubleshooting "Unable to attach to browser"
-1. **Use File Mode**: For static development without a web server, select the **"Open index.html (Edge)"** configuration in the Run & Debug sidebar.
-2. **Close Existing Edge Instances**: If Edge is already running, the debugger might fail to take control. Try closing all Edge windows and launching again.
-3. **Manual Attach**: To use the "Attach to Edge" config, you must first start Edge from a Windows terminal with debugging enabled:
-   `msedge.exe --remote-debugging-port=9222`
-4. **WSL Networking**: If you are using a local server (like port 8080), ensure the server is actually running in your WSL terminal before hitting F5.
+1. **Use Server Mode (Recommended for WSL)**: Run `python3 -m http.server 8080` in your WSL terminal, then use the **"Launch Edge"** configuration.
+2. **File Mode Limitations**: **"Open index.html (Edge)"** may fail in WSL because Windows Edge often cannot resolve internal Linux file paths.
+3. **Clean Session (Fixes Attach Errors)**: We now use `"userDataDir": false` in `launch.json`. This forces a clean, temporary browser profile, which prevents "Unable to attach" errors caused by existing profile locks.
+4. **Final Check**: If problems persist, ensure all Edge processes are killed via Task Manager (Ctrl+Shift+Esc) before starting the debugger.

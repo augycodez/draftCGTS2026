@@ -1239,10 +1239,11 @@
   .workshop-card-title { font-size: 1.1rem; margin-bottom: 10px; }
   .workshop-list { list-style: disc; padding-left: 20px; font-size: 0.9rem; }
   .workshop-list-circle { list-style: circle; padding-left: 20px; }
+  .workshop-card-wide { grid-column: 1 / -1; }
+  .workshop-note-section { padding-top: 12px; }
+  .workshop-note-list { color: #c62828; }
   .workshop-module-label { font-size: 0.7rem; }
   .workshop-module-desc { font-size: 0.85rem; }
-  .workshop-registration-card { border: 1px solid var(--accent); }
-  .workshop-registration-title { font-size: 1.8rem; }
   .workshop-application-box {
     background: rgba(42,109,217,0.05);
     border: 1px dashed var(--accent);
@@ -1965,24 +1966,24 @@
     <span id="workshop" class="route-anchor" aria-hidden="true"></span>
     <section class="section-pt-60">
       <div class="about-text">
-        <p class="section-label">An Advanced Hands-on Workshop for Translational Research</p>
-        <h2 class="section-title">Molecular and Cellular Platforms for Gene Therapy</h2>
+        <h2 class="section-title">Hands-on Workshop on T-Cell Processing and Flow Cytometric Characterization for CAR-T Applications</h2>
         <p class="section-desc"><strong>Coordinators:</strong> Dr. Thiyagaraj Mayuranathan & Dr. Sandhya Rani</p>
       </div>
 
       <div class="about-grid mt-20">
         <div class="about-text">
           <h3 class="venue-subheading">Overview</h3>
-          <p class="section-desc mb-20">Gene therapy is rapidly transforming modern medicine, driven by advances in molecular quantification, stem cell biology, and immune cell engineering. This intensive workshop provides practical, hands-on training in key platforms that underpin cutting-edge cell and gene therapy research.</p>
-          <p class="section-desc">Participants will gain direct experience with Droplet Digital PCR (ddPCR), HSPC processing, and T-cell phenotyping, alongside expert-led conceptual sessions designed to bridge the gap between theory and application.</p>
+          <p class="section-desc mb-20">This hands-on workshop offers a practical introduction to T-cell processing workflows relevant to contemporary immunotherapy and CAR-T cell therapy. Participants will gain experience in T-cell isolation, activation using CD3/CD28 Dynabeads, and phenotypic characterization through flow cytometry.</p>
+          <p class="section-desc mb-20">Through a combination of live demonstrations, guided practical sessions, and pre-prepared samples, attendees will observe key cellular changes associated with activation and expansion. The workshop will also introduce the fundamentals of genetic modification, including a demonstration of CD19 CAR transduction in T cells (subject to time availability).</p>
+          <p class="section-desc mb-20">Special emphasis will be placed on staining panel design, instrument handling, and data analysis approaches. Each component is contextualised within the CAR-T manufacturing workflow, enabling participants to develop both technical proficiency and an understanding of translational applications.</p>
         </div>
         <div class="about-stats">
           <div class="glass theme-card fade-in">
             <h3 class="workshop-card-title">Who Should Attend</h3>
             <ul class="section-desc workshop-list">
-              <li>Postgraduate students and PhD scholars</li>
+              <li>PhD scholars & Post Doctoral Fellows</li>
               <li>Academic researchers in life sciences</li>
-              <li>Industry professionals in CGT & Biotech</li>
+              <li>Industry professionals in Cell & Gene Therapy & Biotechnology</li>
             </ul>
           </div>
           <div class="glass theme-card fade-in">
@@ -1993,72 +1994,26 @@
               <li>Industry-standard data pipelines</li>
             </ul>
           </div>
+          <div class="glass theme-card fade-in workshop-card-wide">
+            <h3 class="workshop-card-title">Learning Outcomes</h3>
+            <ul class="section-desc workshop-list-circle">
+              <li>Gain hands-on expertise in ddPCR workflows</li>
+              <li>Perform cell isolation using industry-standard methods</li>
+              <li>Master flow cytometry data acquisition and gating</li>
+              <li>Understand clinical and translational applications</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <h2 class="section-title">Workshop Modules</h2>
-      <div class="themes-grid">
-        <!-- Module 1 -->
-        <div class="theme-card glass workshop-module-card">
-          <p class="section-label workshop-module-label">Module 1</p>
-          <h3>Digital Droplet PCR (ddPCR)</h3>
-          <p class="section-desc workshop-module-desc">Focus: Absolute nucleic acid quantification and viral vector analysis. Setup and execution of ddPCR reactions for lentiviral vector copy number quantification.</p>
-        </div>
-
-        <!-- Module 2 -->
-        <div class="theme-card glass workshop-module-card">
-          <p class="section-label workshop-module-label">Module 2</p>
-          <h3>HSPC Isolation & Phenotyping</h3>
-          <p class="section-desc workshop-module-desc">Focus: Stem cell processing. Isolation of CD34⁺ HSPCs from PBMNCs using magnetic bead-based separation and immunophenotyping via flow cytometry.</p>
-        </div>
-
-        <!-- Module 3 -->
-        <div class="theme-card glass workshop-module-card">
-          <p class="section-label workshop-module-label">Module 3</p>
-          <h3>T-cell Isolation & Phenotyping</h3>
-          <p class="section-desc workshop-module-desc">Focus: Immune cell engineering. Isolation of CD3⁺, CD4⁺, and CD8⁺ subsets and characterization of activation, memory, and exhaustion markers.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="about-grid">
-        <div class="glass theme-card">
-          <h3 class="venue-subheading">Learning Outcomes</h3>
-          <ul class="section-desc workshop-list-circle">
-            <li>Gain hands-on expertise in ddPCR workflows</li>
-            <li>Perform cell isolation using industry-standard methods</li>
-            <li>Master flow cytometry data acquisition and gating</li>
-            <li>Understand clinical and translational applications</li>
-          </ul>
-        </div>
-        <div class="glass theme-card">
-          <h3 class="venue-subheading">Instructors</h3>
-          <p class="section-desc"><strong>Dr. Thiyagaraj Mayuranathan</strong><br><strong>Dr. Sandhya Rani</strong><br>Invited industry experts from Bio-Rad<br>Experienced researchers and PhD scholars</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="glass venue-card workshop-registration-card">
-        <h2 class="section-title workshop-registration-title">Workshop Registration</h2>
-        <p class="section-desc mb-20"><strong>Note: </strong>Seats are limited to <strong>30 participants</strong> to ensure a high-quality, hands-on experience. Standalone registration for the workshop is not permitted; participants must register for both the workshop and the symposium. Participation is competitive, and priority will be given to applicants closely working in areas aligned with the workshop themes. Late or spot registration is not available.</p>
-
-        <div class="contact-item workshop-application-box">
-          <p class="section-desc"><strong>How to apply:</strong><br>
-          1. Download the application document.<br>
-          2. Complete and submit to <a href="mailto:cscrmeet@cmcvellore.ac.in">cscrmeet@cmcvellore.ac.in</a>, on or before 31 July 2026.<br>
-          3. Applications close: <strong>31 July 2026</strong><br>
-          4. Notification of selection: <strong>15 August 2026</strong></p>
-        </div>
-
-        <div class="btn-row btn-row-start">
-          <a href="mailto:cscrmeet@cmcvellore.ac.in?subject=Workshop%20Application%20Form%20Request" class="btn btn-primary">Request Application Form</a>
-          <a href="#contact" class="btn btn-ghost" data-page-link="contact">Inquire Details</a>
-        </div>
-      </div>
+    <section class="workshop-note-section">
+      <h2 class="venue-subheading">Note</h2>
+      <ul class="section-desc workshop-list workshop-note-list mb-20">
+        <li>Seats are limited to <strong>30 participants</strong> to ensure a high-quality, hands-on experience.</li>
+        <li>Standalone registration for the workshop is not permitted; participants must register for both the workshop and the symposium.</li>
+        <li>Late or spot registration is not available.</li>
+      </ul>
     </section>
   </div>
 </div>
